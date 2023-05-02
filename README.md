@@ -11,16 +11,24 @@ GitHub Copilot can help you code by offering autocomplete-style suggestions. You
 - **Prerequisites**: To use GitHub Copilot you must have an active GitHub Copilot subscription. Sign up for 60 days free [Copilot](https://github.com/settings/copilot)
 - **Timing**: This course is four steps long and can be completed in under an hour
 
-<summary><h2> How to start this course!</h2></summary>
- 
-1. Above these instructions, click **Use this template**.
-2. From the dropdown right-click **Create a new repository** and open the link in a new tab.
-![Screen Shot 2023-03-07 at 9 28 54 AM](https://user-images.githubusercontent.com/26442605/223501605-e67051f7-50af-4ae0-a18f-6f733a8b6c62.png)
-3. In the new tab, follow the prompts to create a new repository.
-   - For owner, choose your personal account or an organization to host the repository.
-   - We recommend creating a public repository—private repositories will use [Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
-   ![Create a new repository](https://user-images.githubusercontent.com/1221423/169618722-406dc508-add4-4074-83f0-c7a7ad87f6f3.png)
-4. After your new repository is created, wait about 20 seconds, then refresh the page. Follow the step-by-step instructions in the new repository's README.
+## How to start this course
+
+<!-- For start course, run in JavaScript:
+'https://github.com/new?' + new URLSearchParams({
+  template_owner: 'skills',
+  template_name: 'copilot-codespaces-vscode',
+  owner: '@me',
+  name: 'skills-copilot-codespaces-vscode',
+  description: 'My clone repository',
+  visibility: 'public',
+}).toString()
+-->
+
+[![start-course](https://user-images.githubusercontent.com/1221423/235727646-4a590299-ffe5-480d-8cd5-8194ea184546.svg)](https://github.com/new?template_owner=skills&template_name=copilot-codespaces-vscode&owner=%40me&name=skills-copilot-codespaces-vscode&description=My+clone+repository&visibility=public)
+
+1. Right-click **Start course** and open the link in a new tab.
+2. In the new tab, follow the prompts to create a new repository. For owner, we recommend your personal account.
+3. After your new repository is created, wait about 20 seconds, then refresh the page. Follow the step-by-step instructions in the new repository's README.
 
 <!--endstep0-->
 
@@ -289,6 +297,6 @@ Here's a recap of all the tasks you completed:
 
 ---
 
-Get help: [TBD-support](TBD-support-link) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
+Get help: [Post in our discussion board](https://github.com/skills/.github/discussions) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
 
-&copy; 2022 TBD-copyright-holder &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [CC-BY-4.0 License](https://creativecommons.org/licenses/by/4.0/legalcode)
+&copy; 2022 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)

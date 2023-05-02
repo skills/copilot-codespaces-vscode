@@ -1,10 +1,10 @@
 name: Step 1, 1-Copilot Extension in a Codespace
 
-# This step triggers after TBD-step-1-event-desc
+# This step triggers after push to main#devcontainer.json
 # This step sets STEP to 2
 # This step closes <details id=1> and opens <details id=2>
 
-# This will run every time we TBD-step-1-event-desc
+# This will run every time we main#devcontainer.json
 # Reference https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:

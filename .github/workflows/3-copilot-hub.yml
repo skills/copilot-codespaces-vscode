@@ -1,10 +1,10 @@
 name: Step 3, 3-Copilot hub suggestion
 
-# This step triggers after TBD-step-3-event-desc
+# This step triggers after push to main#member.js
 # This step sets STEP to 4
 # This step closes <details id=3> and opens <details id=4>
 
-# This will run every time we TBD-step-3-event-desc
+# This will run every time we push to main#member.js
 # Reference https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
