@@ -11,16 +11,27 @@ GitHub Copilot can help you code by offering autocomplete-style suggestions. You
 - **Prerequisites**: To use GitHub Copilot you must have an active GitHub Copilot subscription. Sign up for 60 days free [Copilot](https://github.com/settings/copilot)
 - **Timing**: This course is four steps long and can be completed in under an hour
 
-<summary><h2> How to start this course!</h2></summary>
- 
-1. Above these instructions, click **Use this template**.
-2. From the dropdown right-click **Create a new repository** and open the link in a new tab.
-![Screen Shot 2023-03-07 at 9 28 54 AM](https://user-images.githubusercontent.com/26442605/223501605-e67051f7-50af-4ae0-a18f-6f733a8b6c62.png)
-3. In the new tab, follow the prompts to create a new repository.
+## How to start this course
+
+<!-- For start course, run in JavaScript:
+'https://github.com/new?' + new URLSearchParams({
+  template_owner: 'skills',
+  template_name: 'copilot-codespaces-vscode',
+  owner: '@me',
+  name: 'skills-copilot-codespaces-vscode',
+  description: 'My clone repository',
+  visibility: 'public',
+}).toString()
+-->
+
+[![start-course](https://user-images.githubusercontent.com/1221423/235727646-4a590299-ffe5-480d-8cd5-8194ea184546.svg)](https://github.com/new?template_owner=skills&template_name=copilot-codespaces-vscode&owner=%40me&name=skills-copilot-codespaces-vscode&description=My+clone+repository&visibility=public)
+
+1. Right-click **Start course** and open the link in a new tab.
+2. In the new tab, most of the prompts will automatically fill in for you.
    - For owner, choose your personal account or an organization to host the repository.
-   - We recommend creating a public repository—private repositories will use [Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
-   ![Create a new repository](https://user-images.githubusercontent.com/1221423/169618722-406dc508-add4-4074-83f0-c7a7ad87f6f3.png)
-4. After your new repository is created, wait about 20 seconds, then refresh the page. Follow the step-by-step instructions in the new repository's README.
+   - We recommend creating a public repository, as private repositories will [use Actions minutes](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
+   - Scroll down and click the **Create repository** button at the bottom of the form.
+3. After your new repository is created, wait about 20 seconds, then refresh the page. Follow the step-by-step instructions in the new repository's README.
 
 <!--endstep0-->
 
@@ -28,11 +39,11 @@ GitHub Copilot can help you code by offering autocomplete-style suggestions. You
 <summary><h2>Step 1: Leverage Codespaces with VS Code for Copilot</h2></summary>
 
 _Welcome to "	Develop With AI Powered Code Suggestions Using GitHub Copilot and VS Code"! :wave:_
- 
-GitHub Copilot is an AI pair programmer that helps you write code faster and with less work. It draws context from comments and code to suggest individual lines and whole functions instantly. GitHub Copilot is powered by OpenAI Codex, a generative pretrained language model created by OpenAI. 
- 
+
+GitHub Copilot is an AI pair programmer that helps you write code faster and with less work. It draws context from comments and code to suggest individual lines and whole functions instantly. GitHub Copilot is powered by OpenAI Codex, a generative pretrained language model created by OpenAI.
+
 **Copilot works with many code editors including VS Code, Visual Studio, JetBrains IDE, and Neovim.**
- 
+
 Additionally, GitHub Copilot is trained on all languages that appear in public repositories. For each language, the quality of suggestions you receive may depend on the volume and diversity of training data for that language.
 
 Using Copilot inside a Codespace shows just how easy it is to get up and running with GitHub's suite of [Collaborative Coding](https://github.com/features#features-collaboration) tools.
@@ -43,8 +54,8 @@ Using Copilot inside a Codespace shows just how easy it is to get up and running
 ### :keyboard: Activity: Enable Copilot inside a Codespace
 
 **We recommend opening another browser tab to work through the following activities so you can keep these instructions open for reference.**
- 
-Before you open up a codespace on a repository, you can create a development container and define specific extensions or configurations that will be used or installed in your codespace. Let's create this development container and add copilot to the list of extensions. 
+
+Before you open up a codespace on a repository, you can create a development container and define specific extensions or configurations that will be used or installed in your codespace. Let's create this development container and add copilot to the list of extensions.
 
 1. Navigating back to your **Code** tab of your repository, click the **Add file** drop-down button, and then click `Create new file`.
 1. Type or paste the following in the empty text field prompt to name your file.
@@ -65,7 +76,7 @@ Before you open up a codespace on a repository, you can create a development con
        }
    }
    ```
-1. Select the option to **Commit directly to the `main` branch**, and then click the **Commit new file** button. 
+1. Select the option to **Commit directly to the `main` branch**, and then click the **Commit new file** button.
 1. Navigate back to the home page of your repository by clicking the **Code** tab located at the top left of the screen.
 1. Click the **Code** button located in the middle of the page.
 1. Click the **Codespaces** tab on the box that pops up.
@@ -79,7 +90,7 @@ Before you open up a codespace on a repository, you can create a development con
 ![Screen Shot 2023-03-09 at 9 04 13 AM](https://user-images.githubusercontent.com/26442605/224102514-7d6d2f51-f435-401d-a529-7bae3ae3e511.png)
 
 **Wait about 60 seconds then refresh your repository landing page for the next step.**
- 
+
 </details>
 
 <details id=2>
@@ -90,70 +101,70 @@ _Nice work! :tada: You created a Codespace using a devcontainer file that instal
 GitHub Copilot provides suggestions for numerous languages and a wide variety of frameworks, but works especially well for Python, JavaScript, TypeScript, Ruby, Go, C# and C++. The following samples are in JavaScript, but other languages will work similarly.
 
 Let's try this out utilizing Javascript for Copilot.
- 
+
 ### :keyboard: Activity: Add a Javascript file and start writing code
 
-1. From inside the codespace in the VS Code explorer window, create a new file. 
- 
+1. From inside the codespace in the VS Code explorer window, create a new file.
+
 > **Note**:
 > If you closed the Codespace from above, please open it back up or create a new Codespace.
- 
+
 2. Name the file `skills.js`
 3. Verify your new file looks like:
  ![Screen Shot 2023-03-09 at 9 21 34 AM](https://user-images.githubusercontent.com/26442605/224105906-d1beb531-b747-4c7a-85ba-a12526488422.png)
 4. In the `skills.js` file, type the following function header.
- 
+
    ```
    function calculateNumbers(var1, var2)
    ```
    GitHub Copilot will automatically suggest an entire function body in grayed text. Below is an example of what you'll most likely see, but the exact suggestion may vary.
  ![Screen Shot 2023-04-27 at 10 23 06 AM](https://user-images.githubusercontent.com/26442605/234941079-b4bf3e9d-fc70-4b20-b74c-0ee753ba344e.png)
 
- 
+
 5. Press `Tab` to accept the suggestion.
- 
+
 ### :keyboard: Activity: Push code to your repository from the codespace
 
 1. Use the VS Code terminal to add the `skills.js` file to the repository:
- 
+
    ```
    git add skills.js
    ```
 
 2. Next from the VS code terminal stage and commit the changes to the repository:
- 
+
    ```
    git commit -m "Copilot first commit"
    ```
- 
+
 3. Finally from the VS code terminal push to code to the repository:
- 
+
    ```
    git push
    ```
- 
+
 **Wait about 60 seconds then refresh your repository landing page for the next step.**
- 
+
 </details>
 
 <details id=3>
 <summary><h2>Step 3: View the GitHub Copilot tab with multiple suggestions</h2></summary>
 
 _Nice work! You just used AI code suggestions within a Javascript file by using GitHub Copilot :sparkles:_
- 
+
 Keep in mind that as you continue to use copilot, you may not want some of the suggestions GitHub Copilot offers. GitHub Copilot will show you multiple suggestions in a new tab.
 
 ### :keyboard: Activity: Pull the latest code to the Codespace repo.
 
 > **Note**
  > Pull MUST be done prior to the next activity.
- 
+
 1. Use the VS Code terminal to pull the latest code:
 
    ```
    git pull
    ```
-   
+
 ### :keyboard: Activity: Add another Javascript method and view all suggestions
 
 1. From inside the codespace in the VS Code explorer window, create a new file. Note: If you closed the Codespace from above please open it back up or create a new Codespace.
@@ -165,29 +176,29 @@ Keep in mind that as you continue to use copilot, you may not want some of the s
 4. Stop typing and view the Copilot suggestion by hovering over the red squiggly and select the `...`
 5. Click `Open Completions Panel`. Copilot will synthesize around 10 different code suggestions. You should see something like this:
  ![Screen Shot 2023-04-27 at 10 06 55 AM](https://user-images.githubusercontent.com/26442605/234937592-d196bd5e-8ac2-4d9a-87f4-94e8a9b6a417.png)
-6. Find a solution you like and click `Accept Solution`. 
+6. Find a solution you like and click `Accept Solution`.
 7. Your `member.js` file will be updated with your solution.
- 
+
 ### :keyboard: Activity: Push code to your repository from the codespace
 
 1. Use the VS Code terminal to add the `member.js` file to the repository:
- 
+
    ```
    git add member.js
    ```
 
 2. Next from the VS code terminal stage and commit the changes to the repository:
- 
+
    ```
    git commit -m "Copilot second commit"
    ```
- 
+
 3. Finally from the VS code terminal push to code to the repository:
- 
+
    ```
    git push
    ```
-   
+
 
 **Wait about 60 seconds then refresh your repository landing page for the next step.**
 
@@ -198,7 +209,7 @@ Keep in mind that as you continue to use copilot, you may not want some of the s
 
 _Nicely done utilizing the Copilot tab!_ :partying_face:
 
-You now have leveraged the Copilot quick tab auto-suggest as well as the Copilot hub to accept AI generated suggestions. 
+You now have leveraged the Copilot quick tab auto-suggest as well as the Copilot hub to accept AI generated suggestions.
 
 Now lets see how you can leverage comments to generate Copilot suggestions!
 
@@ -206,13 +217,13 @@ Now lets see how you can leverage comments to generate Copilot suggestions!
 
 > **Note**
  > Pull MUST be done prior to the next activity.
- 
+
 1. Use the VS Code terminal to pull the latest code:
 
    ```
    git pull
    ```
-   
+
 ### :keyboard: Activity: Generate Copilot suggested code from comments.
 
 1. From inside the codespace in the VS Code explorer window, create a new file. (If you closed the Codespace from above, please open it back up or create a new Codespace.)
@@ -226,30 +237,30 @@ Now lets see how you can leverage comments to generate Copilot suggestions!
 6. Hover over the red squggly and select the `...`
    > **Note**
    > If you don't see the copilot code block suggestion or the red squiggly and the three dots `...`, you can type `control + enter` to bring up the GitHub Copilot completions panel.
-  
+
 7. Click `Open Completions Panel`. Copilot will synthesise around 10 different code suggestions. You should see somethig like this:
  ![Screen Shot 2023-04-25 at 3 59 42 PM](https://user-images.githubusercontent.com/26442605/234425509-74ea96e0-bbd6-417b-84c5-73546ac7b2cd.png)
-8. Find a solution you like and click `Accept Solution`. 
+8. Find a solution you like and click `Accept Solution`.
 7. Your `comments.js` file will be updated with your solution.
- 
+
 ### :keyboard: Activity: Push code to your repository from the codespace
 
 1. Use the VS Code terminal to add the `comments.js` file to the repository:
- 
+
    ```
    git add comments.js
    ```
 
 2. Next from the VS code terminal stage and commit the changes to the repository:
- 
+
    ```
    git commit -m "Copilot third commit"
    ```
- 
+
 3. Finally from the VS code terminal push to code to the repository:
- 
+
    ```
-   git push 
+   git push
    ```
 
 **Wait about 60 seconds then refresh your repository landing page for the next step.**
@@ -271,7 +282,7 @@ Here's a recap of all the tasks you completed:
 * Leverage comments to have Copilot auto-suggest code.
 
 ### Additional learning and resources
- 
+
 - [Copilot for Individuals](https://docs.github.com/en/copilot/overview-of-github-copilot/about-github-copilot-for-individuals)
 - [Copilot for Business](https://docs.github.com/en/copilot/overview-of-github-copilot/about-github-copilot-for-business)
 - [Getting started with Copilot](https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-visual-studio-code)
@@ -289,6 +300,6 @@ Here's a recap of all the tasks you completed:
 
 ---
 
-Get help: [TBD-support](TBD-support-link) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
+Get help: [Post in our discussion board](https://github.com/skills/.github/discussions) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
 
-&copy; 2022 TBD-copyright-holder &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [CC-BY-4.0 License](https://creativecommons.org/licenses/by/4.0/legalcode)
+&copy; 2022 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
