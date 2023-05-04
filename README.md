@@ -131,13 +131,13 @@ Let's try this out utilizing Javascript for Copilot.
    git add skills.js
    ```
 
-2. Next from the VS code terminal stage and commit the changes to the repository:
+2. Next from the VS Code terminal stage and commit the changes to the repository:
 
    ```
    git commit -m "Copilot first commit"
    ```
 
-3. Finally from the VS code terminal push to code to the repository:
+3. Finally from the VS Code terminal push to code to the repository:
 
    ```
    git push
@@ -187,13 +187,13 @@ Keep in mind that as you continue to use copilot, you may not want some of the s
    git add member.js
    ```
 
-2. Next from the VS code terminal stage and commit the changes to the repository:
+2. Next from the VS Code terminal stage and commit the changes to the repository:
 
    ```
    git commit -m "Copilot second commit"
    ```
 
-3. Finally from the VS code terminal push to code to the repository:
+3. Finally from the VS Code terminal push to code to the repository:
 
    ```
    git push
@@ -238,7 +238,7 @@ Now lets see how you can leverage comments to generate Copilot suggestions!
    > **Note**
    > If you don't see the copilot code block suggestion or the red squiggly and the three dots `...`, you can type `control + enter` to bring up the GitHub Copilot completions panel.
 
-7. Click `Open Completions Panel`. Copilot will synthesise around 10 different code suggestions. You should see somethig like this:
+7. Click `Open Completions Panel`. Copilot will synthesise around 10 different code suggestions. You should see something like this:
  ![Screen Shot 2023-04-25 at 3 59 42 PM](https://user-images.githubusercontent.com/26442605/234425509-74ea96e0-bbd6-417b-84c5-73546ac7b2cd.png)
 8. Find a solution you like and click `Accept Solution`.
 7. Your `comments.js` file will be updated with your solution.
@@ -251,13 +251,13 @@ Now lets see how you can leverage comments to generate Copilot suggestions!
    git add comments.js
    ```
 
-2. Next from the VS code terminal stage and commit the changes to the repository:
+2. Next from the VS Code terminal stage and commit the changes to the repository:
 
    ```
    git commit -m "Copilot third commit"
    ```
 
-3. Finally from the VS code terminal push to code to the repository:
+3. Finally from the VS Code terminal push to code to the repository:
 
    ```
    git push
