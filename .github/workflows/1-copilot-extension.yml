@@ -21,10 +21,8 @@ permissions:
   contents: write
 
 jobs:
-  # The purpose of this job is to output the current step number 
-  # (retreived from the STEP file). This output variable can
-  # then be referenced in other jobs and used in conditional 
-  # expressions.
+  # Get the current step from .github/script/STEP so we can
+  # limit running the main job when the learner is on the same step.
   get_current_step:
     name: Check current step number
     runs-on: ubuntu-latest
@@ -32,19 +30,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - id: get_step
-        run: echo "::set-output name=current_step::$(cat ./.github/script/STEP)"
+        run: |
+          echo "current_step=$(cat ./.github/script/STEP)" >> $GITHUB_OUTPUT
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
-      
+
   on_add_devcontainer:
     name: On Add Devcontainer
     needs: get_current_step
 
     # We will only run this action when:
     # 1. This repository isn't the template repository
+    # 2. The STEP is currently 1
     # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
-    if: ${{ !github.event.repository.is_template && needs.get_current_step.outputs.current_step == 1 }}
+    if: >-
+      ${{ !github.event.repository.is_template
+          && needs.get_current_step.outputs.current_step == 1 }}
 
     # We'll run Ubuntu for performance instead of Mac or Windows
     runs-on: ubuntu-latest
@@ -52,17 +54,17 @@ jobs:
     steps:
       # We'll need to check out the repository so that we can edit the README
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      # Verify the learner added the file contents
-      - name: Check workflow contents, jobs
+      # Verify the Copilot extension is present
+      - name: Check Copilot extension
         run: |
           chmod a+x .github/script/check-file.sh
           ./.github/script/check-file.sh
         env:
           FILE: ".devcontainer/devcontainer.json"
           SEARCH: "GitHub.copilot"
-      
+
       # Update README to close <details id=1> and open <details id=2>
       # and set STEP to '2'
       - name: Update to step 2
