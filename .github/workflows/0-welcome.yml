@@ -48,7 +48,7 @@ jobs:
           fetch-depth: 0 # Let's get all the branches
 
       # In README.md, switch step 0 for step 1.
-            - name: Update to step 1
+      - name: Update to step 1
         uses: skills/action-update-step@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

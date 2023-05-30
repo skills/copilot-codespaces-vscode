@@ -64,7 +64,7 @@ jobs:
           SEARCH: "Create web server"
           
       # In README.md, switch step 3 for step X.
-            - name: Update to step X
+      - name: Update to step X
         uses: skills/action-update-step@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

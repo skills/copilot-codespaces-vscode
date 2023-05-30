@@ -41,8 +41,7 @@ In this course, you will:
 
 <!--endstep0-->
 
-<details id=1>
-<summary><h2>Step 1: Leverage Codespaces with VS Code for Copilot</h2></summary>
+## Step 1: Leverage Codespaces with VS Code for Copilot
 
 _Welcome to "	Develop With AI Powered Code Suggestions Using GitHub Copilot and VS Code"! :wave:_
 
@@ -97,10 +96,9 @@ Before you open up a codespace on a repository, you can create a development con
 
 **Wait about 60 seconds then refresh your repository landing page for the next step.**
 
-</details>
 
-<details id=2>
-<summary><h2>Step 2: Seeing AI code suggestions in a Javascript file!</h2></summary>
+
+## Step 2: Seeing AI code suggestions in a Javascript file!
 
 _Nice work! :tada: You created a Codespace using a devcontainer file that installed Copilot!_
 
@@ -151,10 +149,9 @@ Let's try this out utilizing Javascript for Copilot.
 
 **Wait about 60 seconds then refresh your repository landing page for the next step.**
 
-</details>
 
-<details id=3>
-<summary><h2>Step 3: View the GitHub Copilot tab with multiple suggestions</h2></summary>
+
+## Step 3: View the GitHub Copilot tab with multiple suggestions
 
 _Nice work! You just used AI code suggestions within a Javascript file by using GitHub Copilot :sparkles:_
 
@@ -208,10 +205,9 @@ Keep in mind that as you continue to use copilot, you may not want some of the s
 
 **Wait about 60 seconds then refresh your repository landing page for the next step.**
 
-</details>
 
-<details id=4>
-<summary><h2>Step 4: Using comments to generate code with Copilot</h2></summary>
+
+## Step 4: Using comments to generate code with Copilot
 
 _Nicely done utilizing the Copilot tab!_ :partying_face:
 
@@ -271,10 +267,9 @@ Now lets see how you can leverage comments to generate Copilot suggestions!
 
 **Wait about 60 seconds then refresh your repository landing page for the next step.**
 
-</details>
 
-<details id=X>
-<summary><h2>Finish</h2></summary>
+
+## Finish
 
 _Congratulations friend, you've completed this course!_
 
@@ -302,7 +297,7 @@ Here's a recap of all the tasks you completed:
 - [Read the Get started with GitHub docs](https://docs.github.com/en/get-started).
 - To find projects to contribute to, check out [GitHub Explore](https://github.com/explore).
 
-</details>
+
 
 ---
 
