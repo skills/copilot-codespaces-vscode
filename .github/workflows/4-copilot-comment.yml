@@ -1,10 +1,9 @@
 name: Step 4, 4-Add Copilot suggestion from comment
 # This step triggers after push to main#comments.js
-# This step sets STEP to X
 # This step closes <details id=3> and opens <details X>
 
 # This will run every time we main#comments.js
-# Reference https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+# Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   push:
@@ -13,7 +12,7 @@ on:
     paths:
       - 'comments.js'
       
-# Reference https://docs.github.com/en/actions/security-guides/automatic-token-authentication
+# Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
   # Need `contents: read` to checkout the repository
   # Need `contents: write` to update the step metadata
@@ -21,7 +20,7 @@ permissions:
 
 jobs:
   # The purpose of this job is to output the current step number 
-  # (retreived from the STEP file). This output variable can
+  # (retreived from the step file). This output variable can
   # then be referenced in other jobs and used in conditional 
   # expressions.
   get_current_step:
@@ -31,7 +30,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - id: get_step
-        run: echo "::set-output name=current_step::$(cat ./.github/script/STEP)"
+        run: echo "::set-output name=current_step::$(cat ./.github/steps/-step.txt)"
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
       
@@ -41,8 +40,8 @@ jobs:
 
     # We will only run this action when:
     # 1. This repository isn't the template repository
-    # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
-    # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
     if: ${{ !github.event.repository.is_template && needs.get_current_step.outputs.current_step == 4}}
 
     # We'll run Ubuntu for performance instead of Mac or Windows
@@ -64,10 +63,9 @@ jobs:
           FILE: "comments.js"
           SEARCH: "Create web server"
           
-      # Update README to close <details id=3> and open <details id=X>
-      # and set STEP to 'X'
-      - name: Update to step X
-        uses: skills/action-update-step@v1
+      # In README.md, switch step 3 for step X.
+            - name: Update to step X
+        uses: skills/action-update-step@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 4

@@ -1,11 +1,10 @@
 name: Step 2, 2-Javascript function
 
 # This step triggers after push to main#skills.js
-# This step sets STEP to 3
-# This step closes <details id=2> and opens <details id=3>
+# This workflow updates from step 2 to step 3.
 
 # This will run every time we push to main#skills.js
-# Reference https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+# Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   push:
@@ -14,7 +13,7 @@ on:
     branches:
       - main
 
-# Reference https://docs.github.com/en/actions/security-guides/automatic-token-authentication
+# Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
   # Need `contents: read` to checkout the repository
   # Need `contents: write` to update the step metadata
@@ -22,7 +21,7 @@ permissions:
 
 jobs:
   # The purpose of this job is to output the current step number 
-  # (retreived from the STEP file). This output variable can
+  # (retreived from the step file). This output variable can
   # then be referenced in other jobs and used in conditional 
   # expressions.
   get_current_step:
@@ -32,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - id: get_step
-        run: echo "::set-output name=current_step::$(cat ./.github/script/STEP)"
+        run: echo "::set-output name=current_step::$(cat ./.github/steps/-step.txt)"
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
       
@@ -42,8 +41,8 @@ jobs:
 
     # We will only run this action when:
     # 1. This repository isn't the template repository
-    # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
-    # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
     if: ${{ !github.event.repository.is_template && needs.get_current_step.outputs.current_step == 2 }}
 
     # We'll run Ubuntu for performance instead of Mac or Windows
@@ -66,10 +65,9 @@ jobs:
           SEARCH: "function calculateNumbers"
 
           
-      # Update README to close <details id=2> and open <details id=3>
-      # and set STEP to '3'
-      - name: Update to step 3
-        uses: skills/action-update-step@v1
+      # In README.md, switch step 2 for step 3.
+            - name: Update to step 3
+        uses: skills/action-update-step@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 2
