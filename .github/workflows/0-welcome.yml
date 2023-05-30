@@ -1,17 +1,13 @@
-name: Step 2, 2-Javascript function
+name: Step 0, Welcome
 
-# This step triggers after push to main#skills.js.
-# This workflow updates from step 2 to step 3.
+# This step triggers after the learner creates a new repository from the template.
+# This workflow updates from step 0 to step 1.
 
-# This will run every time we push to main#skills.js.
+# This will run every time we create push a commit to `main`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
+  create:
   workflow_dispatch:
-  push:
-    paths:
-      - "skills.js"
-    branches:
-      - main
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -20,30 +16,26 @@ permissions:
   contents: write
 
 jobs:
-  # The purpose of this job is to output the current step number
-  # (retreived from the step file). This output variable can
-  # then be referenced in other jobs and used in conditional
-  # expressions.
   get_current_step:
     name: Check current step number
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - id: get_step
         run: echo "::set-output name=current_step::$(cat ./.github/steps/-step.txt)"
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
 
-  on_functionadded:
-    name: On Creation of a Javascript function
+  on_start:
+    name: On start
     needs: get_current_step
 
     # We will only run this action when:
     # 1. This repository isn't the template repository.
     # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
-    if: ${{ !github.event.repository.is_template && needs.get_current_step.outputs.current_step == 2 }}
+    if: ${{ !github.event.repository.is_template && needs.get_current_step.outputs.current_step == 0}}
 
     # We'll run Ubuntu for performance instead of Mac or Windows.
     runs-on: ubuntu-latest
@@ -51,23 +43,14 @@ jobs:
     steps:
       # We'll need to check out the repository so that we can edit the README.
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0 # Let's get all the branches.
 
-      # Verify the PR updated package.json
-      - name: Check package.json
-        run: |
-          chmod a+x .github/script/check-file.sh
-          ./.github/script/check-file.sh
-        env:
-          FILE: "skills.js"
-          SEARCH: "function calculateNumbers"
-
-      # In README.md, switch step 2 for step 3.
-      - name: Update to step 3
+      # In README.md, switch step 0 for step 1.
+      - name: Update to step 1
         uses: skills/action-update-step@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          from_step: 2
-          to_step: 3
+          from_step: 0
+          to_step: 1

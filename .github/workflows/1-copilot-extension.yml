@@ -1,29 +1,28 @@
 name: Step 1, 1-Copilot Extension in a Codespace
 
-# This step triggers after push to main#devcontainer.json
-# This step sets STEP to 2
-# This step closes <details id=1> and opens <details id=2>
+# This step triggers after push to main#devcontainer.json.
+# This workflow updates from step 1 to step 2.
 
 # This will run every time we main#devcontainer.json
-# Reference https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+# Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   push:
     paths:
-      - '.devcontainer/devcontainer.json'
+      - ".devcontainer/devcontainer.json"
     branches:
       - main
 
-# Reference https://docs.github.com/en/actions/security-guides/automatic-token-authentication
+# Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
-  # Need `contents: read` to checkout the repository
-  # Need `contents: write` to update the step metadata
+  # Need `contents: read` to checkout the repository.
+  # Need `contents: write` to update the step metadata.
   contents: write
 
 jobs:
-  # The purpose of this job is to output the current step number 
-  # (retreived from the STEP file). This output variable can
-  # then be referenced in other jobs and used in conditional 
+  # The purpose of this job is to output the current step number
+  # (retreived from the step file). This output variable can
+  # then be referenced in other jobs and used in conditional.
   # expressions.
   get_current_step:
     name: Check current step number
@@ -32,29 +31,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - id: get_step
-        run: echo "::set-output name=current_step::$(cat ./.github/script/STEP)"
+        run: echo "::set-output name=current_step::$(cat ./.github/steps/-step.txt)"
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
-      
+
   on_add_devcontainer:
     name: On Add Devcontainer
     needs: get_current_step
 
     # We will only run this action when:
-    # 1. This repository isn't the template repository
-    # Reference https://docs.github.com/en/actions/learn-github-actions/contexts
-    # Reference https://docs.github.com/en/actions/learn-github-actions/expressions
+    # 1. This repository isn't the template repository.
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
     if: ${{ !github.event.repository.is_template && needs.get_current_step.outputs.current_step == 1 }}
 
-    # We'll run Ubuntu for performance instead of Mac or Windows
+    # We'll run Ubuntu for performance instead of Mac or Windows.
     runs-on: ubuntu-latest
 
     steps:
-      # We'll need to check out the repository so that we can edit the README
+      # We'll need to check out the repository so that we can edit the README.
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Verify the learner added the file contents
+      # Verify the learner added the file contents.
       - name: Check workflow contents, jobs
         run: |
           chmod a+x .github/script/check-file.sh
@@ -62,11 +61,10 @@ jobs:
         env:
           FILE: ".devcontainer/devcontainer.json"
           SEARCH: "GitHub.copilot"
-      
-      # Update README to close <details id=1> and open <details id=2>
-      # and set STEP to '2'
+
+      # In README.md, switch step 1 for step 2.
       - name: Update to step 2
-        uses: skills/action-update-step@v1
+        uses: skills/action-update-step@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 1
