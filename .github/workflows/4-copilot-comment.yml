@@ -10,8 +10,8 @@ on:
     branches:
       - main
     paths:
-      - 'comments.js'
-      
+      - "comments.js"
+
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
   # Need `contents: read` to checkout the repository.
@@ -19,9 +19,9 @@ permissions:
   contents: write
 
 jobs:
-  # The purpose of this job is to output the current step number 
+  # The purpose of this job is to output the current step number
   # (retreived from the step file). This output variable can
-  # then be referenced in other jobs and used in conditional 
+  # then be referenced in other jobs and used in conditional
   # expressions.
   get_current_step:
     name: Check current step number
@@ -33,7 +33,7 @@ jobs:
         run: echo "::set-output name=current_step::$(cat ./.github/steps/-step.txt)"
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
-      
+
   on_push_to_comments:
     name: On code generated from comment
     needs: get_current_step
@@ -62,7 +62,7 @@ jobs:
         env:
           FILE: "comments.js"
           SEARCH: "Create web server"
-          
+
       # In README.md, switch step 3 for step X.
       - name: Update to step X
         uses: skills/action-update-step@v2

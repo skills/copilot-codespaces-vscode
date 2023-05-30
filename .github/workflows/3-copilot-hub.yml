@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'member.js'
+      - "member.js"
     branches:
       - main
 
@@ -20,9 +20,9 @@ permissions:
   contents: write
 
 jobs:
-  # The purpose of this job is to output the current step number 
+  # The purpose of this job is to output the current step number
   # (retreived from the step file). This output variable can
-  # then be referenced in other jobs and used in conditional 
+  # then be referenced in other jobs and used in conditional
   # expressions.
   get_current_step:
     name: Check current step number
@@ -34,7 +34,7 @@ jobs:
         run: echo "::set-output name=current_step::$(cat ./.github/steps/-step.txt)"
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
-      
+
   on_Copilothubsuggestions:
     name: On Copilot hub suggestion
     needs: get_current_step
@@ -63,8 +63,7 @@ jobs:
         env:
           FILE: "member.js"
           SEARCH: "skillsMember"
-          
-          
+
       # In README.md, switch step 3 for step 4.
       - name: Update to step 4
         uses: skills/action-update-step@v2

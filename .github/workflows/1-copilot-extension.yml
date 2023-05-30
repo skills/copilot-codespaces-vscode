@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '.devcontainer/devcontainer.json'
+      - ".devcontainer/devcontainer.json"
     branches:
       - main
 
@@ -20,7 +20,7 @@ permissions:
   contents: write
 
 jobs:
-  # The purpose of this job is to output the current step number 
+  # The purpose of this job is to output the current step number
   # (retreived from the step file). This output variable can
   # then be referenced in other jobs and used in conditional.
   # expressions.
@@ -34,7 +34,7 @@ jobs:
         run: echo "::set-output name=current_step::$(cat ./.github/steps/-step.txt)"
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
-      
+
   on_add_devcontainer:
     name: On Add Devcontainer
     needs: get_current_step
@@ -61,7 +61,7 @@ jobs:
         env:
           FILE: ".devcontainer/devcontainer.json"
           SEARCH: "GitHub.copilot"
-      
+
       # In README.md, switch step 1 for step 2.
       - name: Update to step 2
         uses: skills/action-update-step@v2

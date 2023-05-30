@@ -26,7 +26,7 @@ jobs:
         run: echo "::set-output name=current_step::$(cat ./.github/steps/-step.txt)"
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
-      
+
   on_start:
     name: On start
     needs: get_current_step
