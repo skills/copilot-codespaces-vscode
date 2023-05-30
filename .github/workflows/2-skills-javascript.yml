@@ -1,9 +1,9 @@
 name: Step 2, 2-Javascript function
 
-# This step triggers after push to main#skills.js
+# This step triggers after push to main#skills.js.
 # This workflow updates from step 2 to step 3.
 
-# This will run every time we push to main#skills.js
+# This will run every time we push to main#skills.js.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
@@ -15,8 +15,8 @@ on:
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
-  # Need `contents: read` to checkout the repository
-  # Need `contents: write` to update the step metadata
+  # Need `contents: read` to checkout the repository.
+  # Need `contents: write` to update the step metadata.
   contents: write
 
 jobs:
@@ -40,20 +40,20 @@ jobs:
     needs: get_current_step
 
     # We will only run this action when:
-    # 1. This repository isn't the template repository
+    # 1. This repository isn't the template repository.
     # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
     if: ${{ !github.event.repository.is_template && needs.get_current_step.outputs.current_step == 2 }}
 
-    # We'll run Ubuntu for performance instead of Mac or Windows
+    # We'll run Ubuntu for performance instead of Mac or Windows.
     runs-on: ubuntu-latest
 
     steps:
-      # We'll need to check out the repository so that we can edit the README
+      # We'll need to check out the repository so that we can edit the README.
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Let's get all the branches
+          fetch-depth: 0 # Let's get all the branches.
 
       # Verify the PR updated package.json
       - name: Check package.json

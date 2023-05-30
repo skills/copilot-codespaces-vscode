@@ -1,6 +1,6 @@
 name: Step 1, 1-Copilot Extension in a Codespace
 
-# This step triggers after push to main#devcontainer.json
+# This step triggers after push to main#devcontainer.json.
 # This workflow updates from step 1 to step 2.
 
 # This will run every time we main#devcontainer.json
@@ -15,14 +15,14 @@ on:
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
-  # Need `contents: read` to checkout the repository
-  # Need `contents: write` to update the step metadata
+  # Need `contents: read` to checkout the repository.
+  # Need `contents: write` to update the step metadata.
   contents: write
 
 jobs:
   # The purpose of this job is to output the current step number 
   # (retreived from the step file). This output variable can
-  # then be referenced in other jobs and used in conditional 
+  # then be referenced in other jobs and used in conditional.
   # expressions.
   get_current_step:
     name: Check current step number
@@ -40,20 +40,20 @@ jobs:
     needs: get_current_step
 
     # We will only run this action when:
-    # 1. This repository isn't the template repository
+    # 1. This repository isn't the template repository.
     # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
     if: ${{ !github.event.repository.is_template && needs.get_current_step.outputs.current_step == 1 }}
 
-    # We'll run Ubuntu for performance instead of Mac or Windows
+    # We'll run Ubuntu for performance instead of Mac or Windows.
     runs-on: ubuntu-latest
 
     steps:
-      # We'll need to check out the repository so that we can edit the README
+      # We'll need to check out the repository so that we can edit the README.
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Verify the learner added the file contents
+      # Verify the learner added the file contents.
       - name: Check workflow contents, jobs
         run: |
           chmod a+x .github/script/check-file.sh
