@@ -1,4 +1,4 @@
-name: Step 1, 1-Copilot Extension in a Codespace
+name: Step 1, Copilot Extension in a Codespace
 
 # This step triggers after push to main#devcontainer.json.
 # This workflow updates from step 1 to step 2.

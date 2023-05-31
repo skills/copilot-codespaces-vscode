@@ -1,3 +1,9 @@
+<!--
+  <<< Author notes: Step 2 >>>
+  Start this step by acknowledging the previous step.
+  Define terms and link to docs.github.com.
+-->
+
 ## Step 2: Seeing AI code suggestions in a Javascript file!
 
 _Nice work! :tada: You created a Codespace using a devcontainer file that installed Copilot!_

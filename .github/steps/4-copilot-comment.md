@@ -1,3 +1,9 @@
+<!--
+  <<< Author notes: Step 4 >>>
+  Start this step by acknowledging the previous step.
+  Define terms and link to docs.github.com.
+-->
+
 ## Step 4: Using comments to generate code with Copilot
 
 _Nicely done utilizing the Copilot tab!_ :partying_face:

@@ -1,4 +1,5 @@
-name: Step 4, 4-Add Copilot suggestion from comment
+name: Step 4, Add Copilot suggestion from comment
+
 # This step triggers after push to main#comments.js.
 # This step updates from step 3 to step 4.
 

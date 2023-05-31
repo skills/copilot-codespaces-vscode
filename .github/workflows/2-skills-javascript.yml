@@ -1,4 +1,4 @@
-name: Step 2, 2-Javascript function
+name: Step 2, Javascript function
 
 # This step triggers after push to main#skills.js.
 # This workflow updates from step 2 to step 3.

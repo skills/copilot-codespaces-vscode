@@ -1,4 +1,4 @@
-name: Step 3, 3-Copilot hub suggestion
+name: Step 3, Copilot hub suggestion
 
 # This step triggers after push to main#member.js.
 # This workflow updates from step 3 to step 4.

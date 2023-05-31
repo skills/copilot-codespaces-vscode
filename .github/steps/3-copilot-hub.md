@@ -1,3 +1,9 @@
+<!--
+  <<< Author notes: Step 3 >>>
+  Start this step by acknowledging the previous step.
+  Define terms and link to docs.github.com.
+-->
+
 ## Step 3: View the GitHub Copilot tab with multiple suggestions
 
 _Nice work! You just used AI code suggestions within a Javascript file by using GitHub Copilot :sparkles:_
