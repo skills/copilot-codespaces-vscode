@@ -21,6 +21,8 @@ _GitHub Copilot can help you code by offering autocomplete-style suggestions rig
   and tell the learner why they should take the course.
 -->
 
+## Welcome
+
 GitHub Copilot can help you code by offering autocomplete-style suggestions. You can learn how GitHub Copilot works, and what to consider while using GitHub Copilot. GitHub Copilot analyzes the context in the file you are editing, as well as related files, and offers suggestions from within your text editor. GitHub Copilot is powered by OpenAI Codex, a new AI system created by OpenAI.
 
 - **Who this is for**: Developers, DevOps Engineers, Software development managers, Testers.
