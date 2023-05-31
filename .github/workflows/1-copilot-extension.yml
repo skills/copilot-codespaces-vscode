@@ -55,12 +55,10 @@ jobs:
 
       # Verify the learner added the file contents.
       - name: Check workflow contents, jobs
-        run: |
-          chmod a+x .github/script/check-file.sh
-          ./.github/script/check-file.sh
-        env:
-          FILE: ".devcontainer/devcontainer.json"
-          SEARCH: "GitHub.copilot"
+        uses: skills/action-check-file@v1
+        with:
+          file: ".devcontainer/devcontainer.json"
+          search: "GitHub.copilot"
 
       # In README.md, switch step 1 for step 2.
       - name: Update to step 2

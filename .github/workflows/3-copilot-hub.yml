@@ -57,12 +57,10 @@ jobs:
 
       # Verify the skills member function is present.
       - name: Check package for axios version 0.21.2
-        run: |
-          chmod a+x .github/script/check-file.sh
-          ./.github/script/check-file.sh
-        env:
-          FILE: "member.js"
-          SEARCH: "skillsMember"
+        uses: skills/action-check-file@v1
+        with:
+          file: "member.js"
+          search: "skillsMember"
 
       # In README.md, switch step 3 for step 4.
       - name: Update to step 4

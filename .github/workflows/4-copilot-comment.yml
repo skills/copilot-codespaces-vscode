@@ -57,12 +57,10 @@ jobs:
 
       # Verify the learner added the file contents.
       - name: Check workflow contents, jobs
-        run: |
-          chmod a+x .github/script/check-file.sh
-          ./.github/script/check-file.sh
-        env:
-          FILE: "comments.js"
-          SEARCH: "Create web server"
+        uses: skills/action-check-file@v1
+        with:
+          file: "comments.js"
+          search: "Create web server"
 
       # In README.md, switch step 3 for step X.
       - name: Update to step X

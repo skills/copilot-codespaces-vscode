@@ -57,12 +57,10 @@ jobs:
 
       # Verify the PR updated package.json
       - name: Check package.json
-        run: |
-          chmod a+x .github/script/check-file.sh
-          ./.github/script/check-file.sh
-        env:
-          FILE: "skills.js"
-          SEARCH: "function calculateNumbers"
+        uses: skills/action-check-file@v1
+        with:
+          file: "skills.js"
+          search: "function calculateNumbers"
 
       # In README.md, switch step 2 for step 3.
       - name: Update to step 3
