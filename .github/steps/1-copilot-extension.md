@@ -8,7 +8,7 @@
 
 ## Step 1: Leverage Codespaces with VS Code for Copilot
 
-_Welcome to " Develop With AI Powered Code Suggestions Using GitHub Copilot and VS Code"! :wave:_
+_Welcome to "Develop With AI Powered Code Suggestions Using GitHub Copilot and VS Code"! :wave:_
 
 GitHub Copilot is an AI pair programmer that helps you write code faster and with less work. It draws context from comments and code to suggest individual lines and whole functions instantly. GitHub Copilot is powered by OpenAI Codex, a generative pretrained language model created by OpenAI.
 
