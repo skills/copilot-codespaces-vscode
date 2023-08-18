@@ -25,7 +25,7 @@ Here's a recap of all the tasks you completed:
 
 ### What's next?
 
-- [We'd love to hear what you thought of this course](https://github.com/skills/.github/discussions).
+- [We'd love to hear what you thought of this course](https://github.com/orgs/skills/discussions/categories/code-with-copilot).
 - [Learn another GitHub skill](https://github.com/skills).
 - [Read the Get started with GitHub docs](https://docs.github.com/en/get-started).
 - To find projects to contribute to, check out [GitHub Explore](https://github.com/explore).
