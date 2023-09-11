@@ -33,7 +33,7 @@ Now lets see how you can leverage comments to generate Copilot suggestions!
    ```
 4. Press `enter` to go to a new line.
 5. Copilot will suggest a code block.
-6. Hover over the red squggly and select the `...`
+6. Hover over the red squiggly and select the `...`
 
    > **Note**
    > If you don't see the copilot code block suggestion or the red squiggly and the three dots `...`, you can type `control + enter` to bring up the GitHub Copilot completions panel.
