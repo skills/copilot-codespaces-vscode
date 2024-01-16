@@ -39,7 +39,7 @@ jobs:
     name: On Creation of a Javascript function
     needs: get_current_step
 
-    # We will only run this action when:
+    ## We will only run this action when:
     # 1. This repository isn't the template repository.
     # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
     # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
