@@ -69,3 +69,18 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 3
           to_step: 4
+
+      # Commits pushed by an Action will not create a new workflow run. To work
+      # around this, create a repository_dispatch event to ensure that GitHub
+      # Classroom's autograding workflow runs on the commit created by
+      # skills/action-update-step.
+      # Reference: https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow
+      - name: Trigger autograding workflow
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${GITHUB_REPOSITORY}/dispatches" \
+            -f "event_type=autograde"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
