@@ -1,0 +1,17 @@
+name: Testing workflows 
+on: 
+   workflow_dispatch: 
+jobs:
+    monitor-timeout: 
+      runs-on: ubuntu-latest
+      steps:
+       - name: Wait for timeout 
+         run: |
+          sleep 120
+       - name: Cancel workflow if timed out
+         run: |
+          echo "$GITHUB_RUN_ID"
+          if [ -n "$GITHUB_RUN_ID" ]; then 
+             curl -X POST -H "Authorization: token ${{ steps.octotoken.outputs.octo_gh_token }}" \
+             "https://api.github.com/repos/${{ github.repository }}/actions/runs/$GITHUB_RUN_ID/cancel"
+          fi 
