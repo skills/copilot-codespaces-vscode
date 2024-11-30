@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Venta de auriculares con colores llamativos y sonido de calidad. ¡Encuentra el par perfecto para ti!">
+    <title>Auriculares Geniales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ff4081;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            background-color: #ff80ab;
+            padding: 10px 0;
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-bar a:hover {
+            color: #fce4ec;
+        }
+
+        .hero {
+            background: url('https://via.placeholder.com/1920x800') center/cover no-repeat;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+        }
+
+        .product-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 40px 20px;
+            background-color: #ffffff;
+        }
+
+        .product {
+            background-color: #ff80ab;
+            padding: 20px;
+            width: 280px;
+            margin: 10px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+        }
+
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .product h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 10px 0;
+        }
+
+        .product p {
+            color: #fff;
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+
+        .cta-button {
+            background-color: #ff4081;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #f50057;
+        }
+
+        footer {
+            background-color: #ff80ab;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Auriculares Geniales</h1>
+</header>
+
+<div class="nav-bar">
+    <a href="#">Inicio</a>
+    <a href="#">Productos</a>
+    <a href="#">Contacto</a>
+</div>
+
+<div class="hero">
+    <h2>¡Encuentra el Auricular Perfecto para Ti!</h2>
+    <p>Diseño único, colores vibrantes y sonido envolvente. ¡Haz que tu música se escuche con estilo!</p>
+    <a href="#" class="cta-button">Compra Ahora</a>
+</div>
+
+<div class="product-section">
+    <div class="product">
+        <img src="https://via.placeholder.com/280x180" alt="Auricular Colorido 1">
+        <h3>Auricular Neon</h3>
+        <p>Sonido de alta calidad y diseño enérgico. Elige entre varios colores vibrantes.</p>
+        <a href="#" class="cta-button">Ver Producto</a>
+    </div>
+    <div class="product">
+        <img src="https://via.placeholder.com/280x180" alt="Auricular Colorido 2">
+        <h3>Auricular Bluetooth</h3>
+        <p>Comodidad y estilo inalámbrico para llevar tu música a todas partes.</p>
+        <a href="#" class="cta-button">Ver Producto</a>
+    </div>
+    <div class="product">
+        <img src="https://via.placeholder.com/280x180" alt="Auricular Colorido 3">
+        <h3>Auricular Gamer</h3>
+        <p>El mejor sonido para tus juegos, con micrófono incorporado. ¡Haz que cada partida sea épica!</p>
+        <a href="#" class="cta-button">Ver Producto</a>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Auriculares Geniales | Todos los derechos reservados</p>
+</footer>
+
+</body>
+</html>
