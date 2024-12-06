@@ -35,3 +35,95 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+[code]
+I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/scripts/locations/school/school_hall/school_hall.rpy", line 216, in <module>
+  File "game/scripts/core/systems/game.rpy", line 352, in main
+  File "game/scripts/core/systems/locations/locations.rpy", line 268, in call_screen
+  File "renpy/common/00action_other.rpy", line 537, in __call__
+    rv = self.callable(*self.args, **self.kwargs)
+  File "game/scripts/core/systems/FSM/state_machine.rpy", line 403, in advance
+IndexError: list index out of range
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "scripts/locations/home/entrance/hallway/bedroom/bedroom.rpyc", line 81, in script call
+  File "scripts/locks/01global_lock_check.rpyc", line 13, in script call
+  File "scripts/locations/home/entrance/hallway/hallway.rpyc", line 71, in script call
+  File "scripts/locks/01global_lock_check.rpyc", line 10, in script call
+  File "scripts/locks/01global_lock_check.rpyc", line 10, in script call
+  File "scripts/locks/01global_lock_check.rpyc", line 13, in script call
+  File "scripts/locations/home/entrance/entrance.rpyc", line 224, in script call
+  File "scripts/locks/01global_lock_check.rpyc", line 13, in script call
+  File "scripts/locations/home/entrance/kitchen/kitchen.rpyc", line 11, in script call
+  File "scripts/locks/01global_lock_check.rpyc", line 10, in script call
+  File "scripts/locks/01global_lock_check.rpyc", line 13, in script call
+  File "scripts/locations/home/entrance/entrance.rpyc", line 224, in script call
+  File "scripts/locks/01global_lock_check.rpyc", line 13, in script call
+  File "scripts/locations/home/home.rpyc", line 62, in script call
+  File "scripts/locks/01global_lock_check.rpyc", line 13, in script call
+  File "scripts/locations/school/school_hall/school_hall.rpyc", line 216, in script
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\ast.py", line 914, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\python.py", line 2028, in py_exec_bytecode
+    exec bytecode in globals, locals
+  File "game/scripts/locations/school/school_hall/school_hall.rpy", line 216, in <module>
+  File "game/scripts/core/systems/game.rpy", line 352, in main
+  File "game/scripts/core/systems/locations/locations.rpy", line 268, in call_screen
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\exports.py", line 2905, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\ui.py", line 297, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\core.py", line 2702, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, **kwargs)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\core.py", line 3518, in interact_core
+    rv = root_widget.event(ev, x, y, 0)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 998, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 998, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 998, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\screen.py", line 714, in event
+    rv = self.child.event(ev, x, y, st)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 998, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 244, in event
+    rv = d.event(ev, x - xo, y - yo, st)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 998, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 998, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 998, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 244, in event
+    rv = d.event(ev, x - xo, y - yo, st)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\viewport.py", line 306, in event
+    rv = super(Viewport, self).event(ev, x, y, st)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 244, in event
+    rv = d.event(ev, x - xo, y - yo, st)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 998, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\layout.py", line 998, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\behavior.py", line 962, in event
+    return handle_click(self.clicked)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\behavior.py", line 897, in handle_click
+    rv = run(action)
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\display\behavior.py", line 320, in run
+    return action(*args, **kwargs)
+  File "renpy/common/00action_other.rpy", line 537, in __call__
+    rv = self.callable(*self.args, **self.kwargs)
+  File "game/scripts/core/systems/FSM/state_machine.rpy", line 403, in advance
+  File "C:\Users\user\OneDrive\Desktop\NFS Most Wanted\SummertimeSaga-0-20-16-pc\renpy\python.py", line 847, in __getitem__
+    rv = list.__getitem__(self, index)
+IndexError: list index out of range
+
+Windows-8-6.2.9200
+Ren'Py 7.3.5.606
+SummertimeSaga 0.20.16
+Fri Dec 06 10:50:47 2024
+[/code]
