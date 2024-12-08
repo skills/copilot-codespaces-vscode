@@ -1,0 +1,118 @@
+from telegram import Update, KeyboardButton, ReplyKeyboardMarkup
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+
+# Token va Admin ID
+TOKEN = "YOUR_BOT_API_TOKEN"  # O'zingizning tokeningizni kiriting
+ADMIN_ID = 5682528499  # Admin ID-ni o'zgartiring
+
+# Foydalanuvchi tillari
+LANGUAGES = {
+    "uz": {
+        "welcome": "Iltimos, tilni tanlang:",
+        "uzbek": "O'zbekcha",
+        "russian": "Русский",
+        "english": "English",
+        "region": "Iltimos, viloyatingizni tanlang:",
+        "car_type": "Iltimos, avtomobil turini tanlang:",
+        "insurance": "Iltimos, sug'urta turini tanlang:",
+        "passport": "Iltimos, avtomobilning Texpasport ma'lumotlarini kiriting:",
+        "drivers": "Iltimos, haydovchilar sonini tanlang (1-5):",
+        "id_passport": "Iltimos, ID raqam va passport seriyasini kiriting:",
+        "payment": "Iltimos, to'lov turini tanlang:",
+        "thanks": "Rahmat, ma'lumotlaringiz adminga yuborildi!",
+    },
+    "ru": {
+        "welcome": "Пожалуйста, выберите язык:",
+        "uzbek": "O'zbekcha",
+        "russian": "Русский",
+        "english": "English",
+        "region": "Пожалуйста, выберите ваш регион:",
+        "car_type": "Пожалуйста, выберите тип автомобиля:",
+        "insurance": "Пожалуйста, выберите тип страховки:",
+        "passport": "Пожалуйста, введите данные техпаспорта автомобиля:",
+        "drivers": "Пожалуйста, выберите количество водителей (1-5):",
+        "id_passport": "Пожалуйста, введите номер ID и серию паспорта:",
+        "payment": "Пожалуйста, выберите тип оплаты:",
+        "thanks": "Спасибо, ваша информация отправлена администратору!",
+    },
+    "en": {
+        "welcome": "Please select a language:",
+        "uzbek": "O'zbekcha",
+        "russian": "Русский",
+        "english": "English",
+        "region": "Please select your region:",
+        "car_type": "Please select the type of vehicle:",
+        "insurance": "Please select the type of insurance:",
+        "passport": "Please enter the vehicle's technical passport details:",
+        "drivers": "Please select the number of drivers (1-5):",
+        "id_passport": "Please enter your ID number and passport series:",
+        "payment": "Please select the payment type:",
+        "thanks": "Thank you, your information has been sent to the admin!",
+    },
+}
+
+# Foydalanuvchi tillarini saqlash
+user_languages = {}
+
+# Start komandasi
+def start(update: Update, context: CallbackContext):
+    keyboard = [
+        [KeyboardButton(LANGUAGES["uz"]["uzbek"])],
+        [KeyboardButton(LANGUAGES["uz"]["russian"])],
+        [KeyboardButton(LANGUAGES["uz"]["english"])]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
+    update.message.reply_text(LANGUAGES["uz"]["welcome"], reply_markup=reply_markup)
+
+# Tilni tanlash
+def process_language(update: Update, context: CallbackContext):
+    user_language = None
+    if update.message.text == LANGUAGES["uz"]["uzbek"]:
+        user_language = "uz"
+    elif update.message.text == LANGUAGES["uz"]["russian"]:
+        user_language = "ru"
+    elif update.message.text == LANGUAGES["uz"]["english"]:
+        user_language = "en"
+
+    if user_language:
+        user_languages[update.message.chat_id] = user_language
+        ask_region(update, context)
+    else:
+        update.message.reply_text("Iltimos, berilgan variantlardan birini tanlang.")
+
+# Viloyatni tanlash
+def ask_region(update: Update, context: CallbackContext):
+    user_language = user_languages.get(update.message.chat_id, "uz")
+    regions = [
+        "Navoiy viloyati", "Toshkent viloyati", "Andijon viloyati",
+        "Buxoro viloyati", "Fargʻona viloyati", "Jizzax viloyati",
+        "Xorazm viloyati", "Namangan viloyati", "Qashqadaryo viloyati",
+        "Qoraqalpogʻiston Respublikasi", "Samarqand viloyati",
+        "Sirdaryo viloyati", "Surxondaryo viloyati", "Toshkent shahar"
+    ]
+    keyboard = [[KeyboardButton(region)] for region in regions]
+    reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
+    update.message.reply_text(LANGUAGES[user_language]["region"], reply_markup=reply_markup)
+
+# Adminni xabardor qilish
+def notify_admin(update: Update, context: CallbackContext):
+    user_language = user_languages.get(update.message.chat_id, "uz")
+    context.bot.send_message(chat_id=ADMIN_ID, text=f"Foydalanuvchi: {update.message.from_user.username}, ID: {update.message.chat_id}")
+    update.message.reply_text(LANGUAGES[user_language]["thanks"])
+
+# Asosiy ishga tushirish funksiyasi
+def main():
+    updater = Updater(TOKEN)
+    dispatcher = updater.dispatcher
+
+    # Komandalar
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, process_language))
+    dispatcher.add_handler(MessageHandler(Filters.contact, notify_admin))
+
+    # Botni ishga tushirish
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
