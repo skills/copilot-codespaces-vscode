@@ -1,0 +1,296 @@
+from typing import List, Dict, Tuple
+
+# Initialisation des noms et scores des joueurs
+def init_scores_joueurs() -> Tuple[List[str], Dict[str, Dict[str, int]]]:
+    joueurs: List[str] = ["", ""]  # Liste contenant les noms des deux joueurs
+    scores: Dict[str, Dict[str, int]] = {
+        "Devinette": {},
+        "Allumettes": {},
+        "Morpion": {},
+        "Puissance4": {}
+    }
+    return joueurs, scores
+
+# Ajouter un score au jeu correspondant
+def ajouter_score(scores: Dict[str, Dict[str, int]], jeu: str, gagnant: str) -> None:
+    if jeu not in scores:
+        scores[jeu] = {}  # Assurez-vous que la clé du jeu existe
+    elif gagnant in scores[jeu]:
+        scores[jeu][gagnant] += 1
+    else:
+        scores[jeu][gagnant] = 1
+# Afficher les scores
+def afficher_scores(scores: Dict[str, Dict[str, int]]):
+    classement: Dict[str, int]  # Scores pour un jeu donné
+    classement_trie: List[Tuple[str, int]] 
+    print("\n--- Оноо ---")
+    for jeu, classement in scores.items():
+        print(f"\n{jeu}:")
+        classement_trie: List[Tuple[str, int]] = sorted(classement.items(), key=lambda x: x[1], reverse=True)
+        for joueur, score in classement_trie:
+            print(f"{joueur}: {score} scores")
+    print("\n")
+
+# Devinette
+def devinette(joueurs: List[str], scores: Dict[str, Dict[str, int]]):
+    print("\n--- Devinette ---")
+    limite_petit : int
+    limite_grand : int
+    nb_a_deviner : int
+    nb_a_trouver : int
+    cpt : int
+    gagnant : str
+    sortir : bool
+    indice : int
+
+    limite_petit: int = 1  # Limite superiere à 1 
+    limite_grand: int = int(input(f"{joueurs[0]}, choisissez une limite supérieure à 1 : ")) # Decider la limite
+    while limite_grand <= limite_petit: # defaut
+        limite_grand = int(input("Veuillez choisir une limite supérieure plus grande que 1 : "))
+
+    nb_a_trouver: int = int(input(f"{joueurs[0]}, choisissez un nombre à deviner pour {joueurs[1]} : "))
+    print("\n" * 20)  # cacher le nombre
+
+    while nb_a_trouver > limite_grand: # defaut
+        nb_a_trouver = int(input("Le nombre dépasse la limite. Choisissez un nombre dans la limite : "))
+
+    print(f"J'ai pensé à un nombre entre {limite_petit} et {limite_grand}.")
+    print("\n C'est parti")
+
+
+    cpt = 0
+    gagnant = ""
+    sortir = True
+
+    while sortir: # quitter le jeu
+        nb_a_deviner: int = int(input(f"{joueurs[1]}, devinez le nombre : "))
+        indice: int = abs(nb_a_trouver - nb_a_deviner) # donner un indice pour faciliter
+
+        if limite_grand < 1000: # pour donner l'indice
+            print(f"{joueurs[1]} , vous pouvez esseyer 5 fois maximale , y compris cette fois")
+            while cpt < 4: # déterminer le gagnant
+                cpt += 1
+                if nb_a_deviner < nb_a_trouver:
+                    print("Trop petit.")
+                elif nb_a_deviner > nb_a_trouver:
+                    print("Trop grand.")
+                else:
+                    print(f"Félicitations, {joueurs[1]} a gagné ! Le nombre était {nb_a_trouver}.")
+                    gagnant = joueurs[1]
+                    sortir = False
+                nb_a_deviner = int(input(f"{joueurs[1]}, devinez le nombre : "))
+            if sortir:
+                print(f"{joueurs[0]} a gagné ! Le nombre était {nb_a_trouver}.")
+                gagnant = joueurs[0]
+                sortir = False
+        elif limite_grand >= 1000:  # pour donner l'indice
+            print(f"{joueurs[1]} , vous pouvez esseyer 10 fois maximale , y compris cette fois")
+            while cpt < 9: # déterminer le gagnant
+                cpt += 1
+                if 0 < indice <= 100: # L'indice
+                    print(f"{nb_a_deviner} : Vous êtes à moins de 100 unités.")
+                else:
+                    if nb_a_deviner < nb_a_trouver:
+                        print("Trop petit.")
+                    elif nb_a_deviner > nb_a_trouver:
+                        print("Trop grand.")
+                    else:
+                        print(f"Félicitations, {joueurs[1]} a gagné ! Le nombre était {nb_a_trouver}.")
+                        gagnant = joueurs[1]
+                        sortir = False
+                nb_a_deviner = int(input(f"{joueurs[1]}, devinez le nombre : "))
+            if sortir:
+                print(f"{joueurs[0]} a gagné ! Le nombre était {nb_a_trouver}.")
+                gagnant = joueurs[0]
+                sortir = False
+
+    ajouter_score(scores, "Devinette", gagnant)
+
+# Allumettes
+def allumettes(joueurs: List[str], scores: Dict[str, Dict[str, int]]):
+    total_allumettes : int
+    gagnant : str
+    sortir : bool
+    joueur_actuel: str
+    prise: int
+    total_allumettes = 20
+    gagnant = ""
+    sortir = True
+    print("\n C'est parti")
+    while sortir : # quitter le jeu
+        while total_allumettes > 0: # defaut
+            print(f"le reste: {total_allumettes}")
+            joueur_actuel = joueurs[total_allumettes % 2] # tourner chaque joueur
+            prise = int(input(f"{joueur_actuel}, Combien d'allumettes voulez-vous prendre (1-3): "))
+            while prise < 1 or prise > 3 or prise > total_allumettes: # defaut
+                prise = int(input("Choix invalide . Veuillez vous choisir 1-3 : "))
+            total_allumettes -= prise
+
+            if total_allumettes == 0: 
+                gagnant = joueurs[(total_allumettes + 1) % 2]
+                print(f"Félicitations {gagnant}, vous avez gagné!")
+                ajouter_score(scores, "Allumettes", gagnant)
+                sortir = False
+
+
+
+def morpion(joueurs: List[str], scores: Dict[str, Dict[str, int]]):
+    grille: List[List[str]] 
+    grille = [["-" for _ in range(3)] for _ in range(3)]      # Grille 3x3 du jeu de Morpion
+    gagnant: str 
+    ligne: int
+    colonne: int
+    gagnant= ""  # Nom du gagnant
+    joueur_actuel: str 
+    joueur_actuel= joueurs[0]  # Joueur qui joue actuellement
+    tours: int 
+    tours= 0  # Nombre de tours joués
+    sortir : bool
+    sortir = True
+    def afficher_grille() :
+        for row in grille:
+            print(" | ".join(row))
+        print()
+
+    def verifier_victoire():
+        # Vérifie les lignes, colonnes et diagonales
+        i : int
+        for i in range(3):
+            if grille[i][0] == grille[i][1] == grille[i][2] != "-":
+                return True
+            if grille[0][i] == grille[1][i] == grille[2][i] != "-":
+                return True
+        if grille[0][0] == grille[1][1] == grille[2][2] != "-":
+            return True
+        if grille[0][2] == grille[1][1] == grille[2][0] != "-":
+            return True
+        return False
+
+    print("\n C'est parti")
+    while tours < 9 and sortir:  # Le jeu dure jusqu'à 9 tours et sortir le boucle
+        afficher_grille()
+        ligne = int(input(f"{joueur_actuel}, choississez la ligne (1-3): "))
+        colonne = int(input(f"{joueur_actuel}, choississez la colonne (1-3): "))
+        while ligne < 1 or ligne > 3 or colonne < 1 or colonne > 3 or grille[ligne][colonne] != "-":
+            print("Choix invalide . choississez une cellule vide")
+            ligne = int(input(f"{joueur_actuel}, choississez la ligne (1-3): "))
+            colonne = int(input(f"{joueur_actuel}, choississez la ligne (1-3): "))
+
+        grille[ligne][colonne] = "X" if joueur_actuel == joueurs[0] else "O"
+        if verifier_victoire():
+            gagnant = joueur_actuel
+            print(f" Félicitations {gagnant}, vous avez gagné!")
+            ajouter_score(scores, "Morpion", gagnant)
+            sortir = False
+        joueur_actuel = joueurs[1] if joueur_actuel == joueurs[0] else joueurs[0]
+        tours += 1
+
+    if gagnant == "":
+        print("match null!")
+
+# Fonction pour jouer au jeu de Puissance4
+def puissance4(joueurs: List[str], scores: Dict[str, Dict[str, int]]):
+    grille: List[List[str]] = [["-" for _ in range(7)] for _ in range(6)]  # Grille 6x7 pour le jeu de Puissance 4
+    gagnant: str 
+    gagnant = ""  # Nom du gagnant
+    joueur_actuel: str
+    joueur_actuel = joueurs[0]  # Joueur qui joue actuellement
+    colonne: int
+    sortir : bool
+    sortir = True
+    def afficher_grille():
+        for row in grille:
+            print(" | ".join(row))
+        print("1  2  3  4  5  6  7")
+
+    def verifier_victoire():
+        # Vérifie les lignes, colonnes et diagonales
+        for row in grille:
+            for i in range(4):
+                if row[i] == row[i+1] == row[i+2] == row[i+3] != "-":
+                    return True
+        for col in range(7):
+            for i in range(3):
+                if grille[i][col] == grille[i+1][col] == grille[i+2][col] == grille[i+3][col] != "-":
+                    return True
+        for i in range(3):
+            for j in range(4):
+                if grille[i][j] == grille[i+1][j+1] == grille[i+2][j+2] == grille[i+3][j+3] != "-":
+                    return True
+                if grille[i][j+3] == grille[i+1][j+2] == grille[i+2][j+1] == grille[i+3][j] != "-":
+                    return True
+        return False
+
+    def verifier_match_nul():
+        match_nul = False
+    
+        for row in grille: # Vérifier si la grille est pleine
+            if "-" in row:
+                match_nul = False  # Il y a encore des cases vides, sinon ce n'est pas  de match nul
+                return False
+    
+        if not verifier_victoire():
+            match_nul = True  # Pas de gagnant et la grille est pleine, donc c'est match nul
+    
+        return match_nul
+
+    print("\n C'est parti")
+    while sortir:
+        afficher_grille()
+        colonne = int(input(f"{joueur_actuel}, Choississez la colonne (1-7): ")) - 1
+        while colonne < 0 or colonne > 6 or grille[0][colonne] != "-":
+            print("Choix invalide . choississez une colonne vide")
+            colonne = int(input(f"{joueur_actuel}, Choississez la colonne (1-7): ")) - 1
+
+        for row in range(5, -1, -1):
+            if grille[row][colonne] == "-":
+                grille[row][colonne] = "R" if joueur_actuel == joueurs[0] else "J"
+                break
+
+        if verifier_victoire():
+            gagnant = joueur_actuel
+            print(f"Félicitations {gagnant}, vous avez gagné!")
+            ajouter_score(scores, "Puissance4", gagnant)
+            sortir = False
+        elif verifier_match_nul() :
+            print(" Match null ")
+            sortir = False
+
+        if joueur_actuel == joueurs[0] : # tourner chaque joueur
+            joueur_actuel = joueurs[1]
+        else :
+            joueur_actuel =joueurs[0]
+
+# Main program
+if __name__ == "__main__":
+    joueurs: List[str] = ["", ""]  # Liste des noms des joueurs
+    scores: Dict[str, Dict[str, int]] = {}  # Dictionnaire des scores initialisé vide
+    joueurs[0] = input("le nom de premier joueur: ")
+    joueurs[1] = input("le nom de deuxieme joueur: ")
+    sortir : bool
+    sortir = True
+    while sortir:
+        print("\n=== MENU PRINCIPAL ===")
+        print("1. Devinette")
+        print("2. Allumettes")
+        print("3. Morpion ")
+        print("4. Puissance4")
+        print("5. Afficher les scores")
+        print("6. Quitter ")
+        choix: int = int(input("Entrez votre choix: "))
+
+        if choix == 1:
+            devinette(joueurs, scores)
+        elif choix == 2:
+            allumettes(joueurs, scores)
+        elif choix == 3:
+            morpion(joueurs, scores)
+        elif choix == 4:
+            puissance4(joueurs, scores)
+        elif choix == 5:
+            afficher_scores(scores)
+        elif choix == 6:
+            print("Au revoir!")
+            sortir = False
+        else:
+            print("Choix invalide.")
