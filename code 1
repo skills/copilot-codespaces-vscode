@@ -1,0 +1,6 @@
+gobuster -u https://virginmoney.com -w wordlist.txt dir
+
+
+
+
+
