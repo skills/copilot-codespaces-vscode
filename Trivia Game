@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #282c34;
+            color: white;
+            padding: 20px;
+        }
+        #game-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background-color: #3a3f47;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        #score {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Trivia Game</h1>
+        <p id="question">Loading question...</p>
+        <div id="choices"></div>
+        <div id="result"></div>
+        <div id="score">Score: 0</div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What is the capital of France?", options: ["Madrid", "Berlin", "Paris", "Rome"], correct: 2 },
+            { question: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter", "Venus"], correct: 1 },
+            { question: "Who wrote 'Hamlet'?", options: ["Charles Dickens", "William Shakespeare", "J.K. Rowling", "Mark Twain"], correct: 1 },
+            { question: "What is the largest ocean on Earth?", options: ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"], correct: 2 },
+            { question: "What is the square root of 64?", options: ["6", "7", "8", "9"], correct: 2 },
+            { question: "Who painted the Mona Lisa?", options: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"], correct: 1 },
+            { question: "What is the boiling point of water at sea level?", options: ["90°C", "100°C", "110°C", "120°C"], correct: 1 },
+            { question: "What is the capital of Japan?", options: ["Beijing", "Seoul", "Tokyo", "Bangkok"], correct: 2 },
+            { question: "What is the smallest prime number?", options: ["1", "2", "3", "5"], correct: 1 },
+            { question: "What is the chemical symbol for gold?", options: ["Au", "Ag", "Pb", "Fe"], correct: 0 }
+        ];
+
+        let score = 0;
+        let currentQuestionIndex = -1;
+
+        function loadQuestion() {
+            currentQuestionIndex = Math.floor(Math.random() * questions.length);
+            const questionData = questions[currentQuestionIndex];
+
+            document.getElementById("question").innerText = questionData.question;
+
+            const choicesDiv = document.getElementById("choices");
+            choicesDiv.innerHTML = ""; // Clear previous choices
+
+            questionData.options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.innerText = `${String.fromCharCode(65 + index)}. ${option}`;
+                button.onclick = () => checkAnswer(index);
+                choicesDiv.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedIndex) {
+            const questionData = questions[currentQuestionIndex];
+
+            const resultDiv = document.getElementById("result");
+            if (selectedIndex === questionData.correct) {
+                resultDiv.innerText = "Correct! 🎉";
+                resultDiv.style.color = "green";
+                score++;
+            } else {
+                resultDiv.innerText = `Incorrect. ❌ The correct answer was ${String.fromCharCode(65 + questionData.correct)}.`;
+                resultDiv.style.color = "red";
+            }
+
+            document.getElementById("score").innerText = `Score: ${score}`;
+
+            // Load the next question after a delay
+            setTimeout(() => {
+                resultDiv.innerText = "";
+                loadQuestion();
+            }, 2000);
+        }
+
+        // Initialize the game
+        loadQuestion();
+    </script>
+</body>
+</html>
