@@ -1,0 +1,354 @@
+import React, { useState } from 'react';
+import { 
+  Home, 
+  User, 
+  Music, 
+  Video, 
+  Image, 
+  PaintBucket, 
+  Globe, 
+  MapPin, 
+  MessageCircle, 
+  Star, 
+  BarChart2,
+  Share2,
+  PlusCircle,
+  Send,
+  DollarSign,
+  Lock,
+  Mail,
+  Phone,
+  ShieldCheck,
+  Upload,
+  Mic,
+  Sparkles,
+  TrendingUp
+} from 'lucide-react';
+
+const ThemeColors = {
+  background: 'bg-gradient-to-br from-rose-50 to-gray-100',
+  primaryButton: 'bg-rose-500 text-white hover:bg-rose-600',
+  card: 'bg-white/80 backdrop-blur-lg shadow-xl'
+};
+
+const MelodyStreamApp = () => {
+  // Main App State
+  const [activeTab, setActiveTab] = useState('home');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
+  const [showDirectDM, setShowDirectDM] = useState(false);
+
+  // Profile and Verification State
+  const [profileStep, setProfileStep] = useState('start');
+  const [profileData, setProfileData] = useState({
+    email: '',
+    phoneNumber: '',
+    name: '',
+    artistType: '',
+    verified: false
+  });
+
+  const ProfileCreationFlow = () => {
+    const handleVerification = () => {
+      if (profileData.email && profileData.phoneNumber) {
+        setProfileData(prev => ({ ...prev, verified: true }));
+        setProfileStep('complete');
+        setIsLoggedIn(true);
+      }
+    };
+
+    return (
+      <div className={`${ThemeColors.card} p-6 rounded-xl m-4`}>
+        <h2 className="text-xl font-bold mb-4">Create Your Profile</h2>
+        <div className="space-y-4">
+          <div className="flex items-center">
+            <User className="mr-3 text-rose-500" />
+            <input 
+              type="text" 
+              placeholder="Full Name" 
+              className="w-full p-2 border rounded"
+              onChange={(e) => setProfileData(prev => ({
+                ...prev,
+                name: e.target.value
+              }))}
+            />
+          </div>
+          <div className="flex items-center">
+            <Mail className="mr-3 text-rose-500" />
+            <input 
+              type="email" 
+              placeholder="Email Address" 
+              className="w-full p-2 border rounded"
+              onChange={(e) => setProfileData(prev => ({
+                ...prev,
+                email: e.target.value
+              }))}
+            />
+          </div>
+          <div className="flex items-center">
+            <Phone className="mr-3 text-rose-500" />
+            <input 
+              type="tel" 
+              placeholder="Phone Number" 
+              className="w-full p-2 border rounded"
+              onChange={(e) => setProfileData(prev => ({
+                ...prev,
+                phoneNumber: e.target.value
+              }))}
+            />
+          </div>
+          <div className="flex items-center">
+            <Mic className="mr-3 text-rose-500" />
+            <select 
+              className="w-full p-2 border rounded"
+              onChange={(e) => setProfileData(prev => ({
+                ...prev,
+                artistType: e.target.value
+              }))}
+            >
+              <option value="">Select Artist Type</option>
+              <option value="musician">Musician</option>
+              <option value="podcaster">Podcaster</option>
+              <option value="dj">DJ</option>
+              <option value="band">Band</option>
+            </select>
+          </div>
+          <button 
+            onClick={handleVerification}
+            className={`${ThemeColors.primaryButton} w-full py-3 rounded-full`}
+          >
+            Create Profile
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  const DonationGoalTracker = () => (
+    <div className={`${ThemeColors.card} p-4 rounded-xl mb-4`}>
+      <div className="flex justify-between items-center mb-2">
+        <h3 className="font-semibold text-lg">Donation Goal</h3>
+        <DollarSign size={20} className="text-rose-500" />
+      </div>
+      <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+        <div 
+          className="bg-rose-500 h-full rounded-full" 
+          style={{width: '45%'}}
+        />
+      </div>
+      <div className="flex justify-between mt-2 text-sm text-gray-600">
+        <span>$2,350 raised</span>
+        <span>$5,000 goal</span>
+      </div>
+    </div>
+  );
+
+  const TopArtistsSection = () => (
+    <div className={`${ThemeColors.card} p-4 rounded-xl mb-4`}>
+      <h3 className="font-semibold text-lg mb-3">Top Artists</h3>
+      <div className="space-y-2">
+        {[1,2,3].map((artist) => (
+          <div key={artist} className="flex items-center justify-between p-2 hover:bg-rose-50 rounded-lg">
+            <div className="flex items-center">
+              <div className="w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center">
+                <Star size={20} className="text-rose-500" />
+              </div>
+              <div className="ml-3">
+                <h4 className="font-semibold">Artist {artist}</h4>
+                <p className="text-sm text-gray-600">Genre</p>
+              </div>
+            </div>
+            <button className={ThemeColors.primaryButton + " px-3 py-1 rounded-full text-sm"}>
+              Follow
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const TrendingContentSection = () => (
+    <div className={`${ThemeColors.card} p-4 rounded-xl mb-4`}>
+      <h3 className="font-semibold text-lg mb-3 flex items-center">
+        <TrendingUp size={20} className="mr-2 text-rose-500" />
+        Trending Now
+      </h3>
+      <div className="grid grid-cols-2 gap-2">
+        {[1,2,3,4].map((item) => (
+          <div key={item} className="aspect-square bg-rose-100 rounded-lg p-2 flex items-center justify-center">
+            <Music size={24} className="text-rose-500" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const LiveStreamingSection = () => (
+    <div className="space-y-4">
+      <div className={`${ThemeColors.card} p-4 rounded-xl`}>
+        <h3 className="font-semibold text-lg mb-3">Start Streaming</h3>
+        <button className={ThemeColors.primaryButton + " w-full py-3 rounded-full"}>
+          Go Live Now
+        </button>
+      </div>
+      <div className={`${ThemeColors.card} p-4 rounded-xl`}>
+        <h3 className="font-semibold text-lg mb-3">Live Now</h3>
+        <div className="space-y-2">
+          {[1,2].map((stream) => (
+            <div key={stream} className="bg-rose-50 p-3 rounded-lg">
+              <h4 className="font-semibold">Live Stream {stream}</h4>
+              <p className="text-sm text-gray-600">1.2k watching</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const PodcastChannelSection = () => (
+    <div className={`${ThemeColors.card} p-4 rounded-xl`}>
+      <h3 className="font-semibold text-lg mb-3">Popular Podcasts</h3>
+      <div className="space-y-2">
+        {[1,2,3].map((podcast) => (
+          <div key={podcast} className="flex items-center justify-between p-2 hover:bg-rose-50 rounded-lg">
+            <div className="flex items-center">
+              <div className="w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center">
+                <Mic size={20} className="text-rose-500" />
+              </div>
+              <div className="ml-3">
+                <h4 className="font-semibold">Podcast {podcast}</h4>
+                <p className="text-sm text-gray-600">Category</p>
+              </div>
+            </div>
+            <button className={ThemeColors.primaryButton + " px-3 py-1 rounded-full text-sm"}>
+              Listen
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const DirectDMSection = () => (
+    <div className={`${ThemeColors.card} p-4 rounded-xl`}>
+      <h3 className="font-semibold text-lg mb-3">Messages</h3>
+      <div className="space-y-2">
+        {[1,2].map((message) => (
+          <div key={message} className="flex items-center justify-between p-2 hover:bg-rose-50 rounded-lg">
+            <div className="flex items-center">
+              <div className="w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center">
+                <User size={20} className="text-rose-500" />
+              </div>
+              <div className="ml-3">
+                <h4 className="font-semibold">User {message}</h4>
+                <p className="text-sm text-gray-600">Latest message...</p>
+              </div>
+            </div>
+            <span className="bg-rose-500 text-white text-xs px-2 py-1 rounded-full">
+              New
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const HideoutCustomizationSection = () => (
+    <div className={`${ThemeColors.card} p-4 rounded-xl`}>
+      <h3 className="font-semibold text-lg mb-3">Your Hideout</h3>
+      <div className="space-y-4">
+        <button className={ThemeColors.primaryButton + " w-full py-2 rounded-full"}>
+          Customize Background
+        </button>
+        <button className={ThemeColors.primaryButton + " w-full py-2 rounded-full"}>
+          Upload Media
+        </button>
+        <button className={ThemeColors.primaryButton + " w-full py-2 rounded-full"}>
+          Generate AI Wallpaper
+        </button>
+      </div>
+    </div>
+  );
+
+  const MainNavigation = () => (
+    <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md flex justify-around p-3 border-t border-gray-200">
+      <NavButton icon={<Home size={24} />} label="Home" tab="home" />
+      <NavButton icon={<Video size={24} />} label="Live" tab="live" />
+      <NavButton icon={<Mic size={24} />} label="Podcasts" tab="podcast" />
+      <NavButton icon={<MessageCircle size={24} />} label="DMs" tab="dm" />
+      <NavButton icon={<User size={24} />} label="Hideout" tab="hideout" />
+    </div>
+  );
+
+  const NavButton = ({ icon, label, tab }) => (
+    <button 
+      onClick={() => setActiveTab(tab)}
+      className={`flex flex-col items-center ${
+        activeTab === tab ? 'text-rose-600' : 'text-gray-500'
+      }`}
+    >
+      {icon}
+      <span className="text-xs">{label}</span>
+    </button>
+  );
+
+  const MainContent = () => {
+    if (!isLoggedIn) {
+      return <ProfileCreationFlow />;
+    }
+
+    switch (activeTab) {
+      case 'home':
+        return (
+          <>
+            <DonationGoalTracker />
+            <TopArtistsSection />
+            <TrendingContentSection />
+          </>
+        );
+      case 'live':
+        return <LiveStreamingSection />;
+      case 'podcast':
+        return <PodcastChannelSection />;
+      case 'dm':
+        return <DirectDMSection />;
+      case 'hideout':
+        return <HideoutCustomizationSection />;
+      default:
+        return <div>Page not found</div>;
+    }
+  };
+
+  return (
+    <div className={`min-h-screen ${ThemeColors.background} pb-20`}>
+      <header className="sticky top-0 bg-white/90 backdrop-blur-md z-50 border-b">
+        <div className="container mx-auto p-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-rose-600">MelodyStream</h1>
+          <div className="flex items-center space-x-4">
+            {isLoggedIn && (
+              <>
+                <button className="text-rose-500">
+                  <Upload size={24} />
+                </button>
+                <button className="text-rose-500">
+                  <MapPin size={24} />
+                </button>
+              </>
+            )}
+            <button className="text-gray-600">
+              <Share2 size={24} />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 pb-20">
+        <MainContent />
+      </main>
+
+      <MainNavigation />
+    </div>
+  );
+};
+
+export default MelodyStreamApp;
