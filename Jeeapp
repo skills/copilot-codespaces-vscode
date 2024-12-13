@@ -1,0 +1,57 @@
+*AndroidManifest.xml*
+
+xml
+
+<?xml version="1.0"
+
+encoding="utf-8"?>
+
+<manifest xmlns:android="(link unavailable)"
+
+package="com.venomstarkindia.je
+
+emainpyq">
+
+<application
+
+android:allowBackup="true"
+
+android:icon="@mipmap/ic
+
+_launcher"
+
+android:label="@string/app
+
+_name"
+
+android: roundIcon="@mipmap
+
+/ic_launcher_round"
+
+android: supportsRtl="true"
+
+android:theme="@style
+
+/AppTheme">
+
+<activity
+
+android:name=".MainActivity">
+
+<intent-filter>
+
+<action android:na
+
+me="android.intent.action.MAIN" / >
+
+<category
+
+android:name="android.int ent.category.LAUNCHER" / >
+
+</intent-filter>
+
+</activity>
+
+</application>
+
+</manifest>
