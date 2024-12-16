@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shop Name</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        nav {
+            background-color: #444;
+            text-align: center;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 10px;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .product {
+            background-color: white;
+            margin: 15px;
+            padding: 15px;
+            width: 250px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .product h3 {
+            margin: 15px 0;
+            font-size: 1.5em;
+        }
+        .product p {
+            color: #777;
+        }
+        .product .price {
+            font-size: 1.2em;
+            color: #333;
+            font-weight: bold;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer a {
+            color: #ddd;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <merquee><h1>PAUL FERTILIZER</h1></merquee>
+        <p>Welcome to the best online fertilizer store at chebri</p>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <section class="container">
+        <!-- Product 1 -->
+        <div class="product">
+            <img src="samridhi.jpg" alt="Product 1">
+            <h3>Product 1</h3>
+            <p><h2>Benefits:</h2>
+                Samridhi Bio NPK by Jaipur Bio Fertilizers is a revolutionary biofertilizer designed to enhance the nutrient uptake efficiency of various crops. Its key benefits include:
+                
+            <h2>Phosphorous Solubilization:</h2> PSB (Phosphate Solubilizing Bacteria) secretes organic acids like gluconic acid, citrate, and malic acid, effectively turning unavailable soil phosphate into available forms.
+                Potash Mobilization: KMB (Potas Mobilizing Bacteria) mobilizes potash available in the soil, vital for the formation of organic substances and protein compounds in plants.
+                pH Optimization: Lowers soil pH, aiding in nutrient availability and absorption.</p>
+            <p class="price">₹850</p>
+            <button>Add to Cart</button>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product">
+            <img src="spray.jpg" alt="Product 2">
+            <h3>Product 2</h3>
+            <p><h2>Battery Sprayer for Agriculture:</h2>
+                Raja 2 in 1 Battery Sprayer for Agriculture - Pressure Spray Pump with 18 litres Capacity and 12V x 8 Ah Battery - Spray Machine for Pesticides, Gardening, Sanitization - Blue</p>
+                
+                <h1>About this item</h1>
+Multi-Function Use: This Agriculture Sprayer Pump can be used for fertilizer, garden, insecticide, medicine, pesticide, and also for watering plants. The pressure is adequate to not harm the plants.
+Powerful Battery:<br>
+The Raja agriculture machine can easily spray 22-28 tanks on a single battery charge. It comes with a 12V x 8Ah battery. The pesticide sprayer has a tank capacity of 18 liters.
+Built-Quality:<br>
+ The sprayer machine for agriculture is built with high-quality PVC plastic that is durable for the Indian climate. It comes with a back support as well as shoulder straps for easy use
+2 in 1 Function:<br>
+The spray machine for agriculture has the feature of spraying manually as well as using the battery. The pressure sprayer is fitted with a regulator for controlling the pressure.
+Accessories Included:<br>
+The power sprayer for agriculture includes handle, 4 nozzle sets, lance, clutch, shoulder straps, washers, spray pump piston,and pipe. It also includes a detailed assembly video.
+                <p class="price">₹4500</p>
+            <button>Add to Cart</button>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product">
+            <img src="saaf.jpeg" alt="Product 3">
+            <h3>Product 3</h3>
+            <p><h1>saaf</h1>
+                A proven & classic fungicide with systemic & contact action. Most trusted & widely used dual mode of action fungicide
+
+            </p>
+            <p class="price">₹100</p>
+            <button>Add to Cart</button>
+        </div>
+        
+        
+        <!-- Product 4 -->
+        <div class="product">
+            <img src="add photo" alt="Product 2">
+            <h3>Product 4</h3>
+            <p>add</p>
+            <p class="price">₹9999</p>
+            <button>Add to Cart</button>
+        </div>
+    
+<!-- Product 5 -->
+<div class="product">
+    <img src="add photo" alt="Product 2">
+    <h3>Product 4</h3>
+    <p>add</p>
+    <p class="price">₹9999</p>
+    <button>Add to Cart</button>
+</div>
+
+<!-- Product 6 -->
+<div class="product">
+    <img src="add photo" alt="Product 2">
+    <h3>Product 4</h3>
+    <p>add</p>
+    <p class="price">₹9999</p>
+    <button>Add to Cart</button>
+</div>
+
+<!-- Product 7 -->
+<div class="product">
+    <img src="add photo" alt="Product 2">
+    <h3>Product 4</h3>
+    <p>add</p>
+    <p class="price">₹9999</p>
+    <button>Add to Cart</button>
+</div>
+
+
+<!-- Product 8 -->
+<div class="product">
+    <img src="add photo" alt="Product 2">
+    <h3>Product 4</h3>
+    <p>add</p>
+    <p class="price">₹9999</p>
+    <button>Add to Cart</button>
+</div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Your Shop Name. All rights reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+        <p>Contact us: <a href="mailto:info@yoursite.com">deeppaul58263@gmail.com</a></p>
+    </footer>
+
+</body>
+</html>
