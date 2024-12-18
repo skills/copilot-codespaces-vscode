@@ -1,0 +1,137 @@
+from telegram import Update, KeyboardButton, ReplyKeyboardMarkup
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ConversationHandler, ContextTypes, filters
+import requests
+
+# Holatlar
+LANGUAGE, USER_TYPE, PHONE, REGION, CAR_TYPE, INSURANCE, PAYMENT = range(7)
+
+# Admin IDsi (adminga xabar yuborish uchun)
+ADMIN_ID = 5682528499  # O'zingizning Telegram ID ni kiriting
+
+# API ma'lumotlari
+USERNAME = "AXMADJONOV-26"
+PASSWORD = "RPY5D1I2"
+
+def send_data_to_website(phone, region, car_type, insurance_type, payment_type, user_type):
+    url = "https://insurance.uz/api/data"
+    payload = {
+        "username": AXMADJONOV-26,
+        "password": RPY5D1I2,
+        "phone": phone,
+        "region": region,
+        "car_type": car_type,
+        "insurance_type": insurance_type,
+        "payment_type": payment_type,
+        "user_type": user_type
+    }
+    headers = {"Content-Type": "application/json"}
+    response = requests.post(url, json=payload, headers=headers)
+    if response.status_code == 200:
+        return response.json().get("message", "✅ Ma'lumot muvaffaqiyatli yuborildi!")
+    else:
+        return f"❌ Xato yuz berdi: Status kodi {response.status_code}"
+
+# Boshlanish
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [KeyboardButton("O'zbek tili"), KeyboardButton("Русский")],
+        [KeyboardButton("English")]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
+    await update.message.reply_text("\U0001F310 Tilni tanlang | Выберите язык | Choose a language:", reply_markup=reply_markup)
+    return LANGUAGE
+
+# Tilni o'rnatish
+async def set_language(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    language = update.message.text
+    context.user_data['language'] = language
+    message = {
+        "O'zbek tili": "Jismoniy yoki yuridik shaxsni tanlang:",
+        "Русский": "Выберите физическое или юридическое лицо:",
+        "English": "Select individual or legal entity:"
+    }
+    await update.message.reply_text(message.get(language, "Invalid language selected."))
+    keyboard = [
+        [KeyboardButton("Jismoniy shaxs"), KeyboardButton("Yuridik shaxs")],
+        [KeyboardButton("Физическое лицо"), KeyboardButton("Юридическое лицо")],
+        [KeyboardButton("Individual"), KeyboardButton("Legal entity")]
+    ]
+    reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
+    return USER_TYPE
+
+    return PAYMENT
+
+# To'lov turi va ma'lumotlarni yuborish
+async def get_payment_type(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    context.user_data['payment_type'] = update.message.text
+
+    phone = context.user_data['phone']
+    region = context.user_data['region']
+    car_type = context.user_data['car_type']
+    insurance_type = context.user_data['insurance_type']
+    payment_type = context.user_data['payment_type']
+    user_type = context.user_data['user_type']
+
+    lang = context.user_data['language']
+
+    if lang == "O'zbek tili":
+        processing_msg = "🔄 Ma'lumotlaringiz yuborilmoqda..."
+    elif lang == "Русский":
+        processing_msg = "🔄 Отправка ваших данных..."
+    else:
+        processing_msg = "🔄 Sending your data..."
+
+    await update.message.reply_text(processing_msg)
+
+    try:
+        result = send_data_to_website(phone, region, car_type, insurance_type, payment_type, user_type)
+        await update.message.reply_text(result)
+
+        # Admin xabar
+        admin_msg = f"New submission:\nPhone: {phone}\nRegion: {region}\nCar Type: {car_type}\nInsurance: {insurance_type}\nPayment: {payment_type}\nUser Type: {user_type}"
+        await context.bot.send_message(chat_id=ADMIN_ID, text=admin_msg)
+
+    except Exception as e:
+        await update.message.reply_text(f"❗ Xatolik: {str(e)}")
+
+    return ConversationHandler.END
+
+# Amaliyotni bekor qilish
+async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    lang = context.user_data.get('language', "O'zbek tili")
+
+    if lang == "O'zbek tili":
+        cancel_msg = "❌ Amaliyot bekor qilindi."
+    elif lang == "Русский":
+        cancel_msg = "❌ Операция отменена."
+    else:
+        cancel_msg = "❌ Operation cancelled."
+
+    await update.message.reply_text(cancel_msg)
+    return ConversationHandler.END
+
+# Asosiy bot funksiyasi
+def main():
+    TOKEN = "7701948780:AAGUMDmSIaIWXGqmBtILS6_TyiGfw5lM2eE"  # Bot tokeningizni kiriting
+    application = ApplicationBuilder().token(TOKEN).build()
+
+    # ConversationHandler sozlash
+    conv_handler = ConversationHandler(
+        entry_points=[CommandHandler("start", start)],
+        states={
+            LANGUAGE: [MessageHandler(filters.TEXT & ~filters.COMMAND, set_language)],
+            USER_TYPE: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_user_type)],
+            PHONE: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_phone)],
+            REGION: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_region)],
+            CAR_TYPE: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_car_type)],
+            INSURANCE: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_insurance_type)],
+            PAYMENT: [MessageHandler(filters.TEXT & ~filters.COMMAND, get_payment_type)],
+        },
+        fallbacks=[CommandHandler("cancel", cancel)]
+    )
+
+    application.add_handler(conv_handler)
+    application.run_polling()
+
+if __name__ == "__main__":
+    main()
