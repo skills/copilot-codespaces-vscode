@@ -1,0 +1,143 @@
+# Dokumentacja Techniczna Analizy Football Project
+
+## 1. **Założenia Projektu**
+
+### Cel Analizy:
+- Analiza spotkań dwóch drużyn, określając taktyki stosowane w analogicznych sytuacjach w tabeli ligowej.
+- Wykorzystanie danych API Football do przygotowania raportu obejmującego statystyki meczowe, wydarzenia oraz zachowania drużyn w końcowych minutach spotkań.
+
+### Etapy Analizy:
+1. **Pobranie pozycji obu drużyn w tabeli.**
+2. **Analiza różnicy punktowej i opis spotkania.**
+3. **Szukamy analogii dla gospodarza (home):**
+   - Mecze, w których gospodarz grał z drużyną o podobnej różnicy punktowej w tabeli.
+4. **Szukamy analogii dla gości (away):**
+   - Mecze, w których goście grali z drużyną o podobnej różnicy punktowej w tabeli.
+5. **Pobranie i analiza danych meczowych:**
+   - Wykorzystanie CSV z wszystkimi spotkaniami do analizy wydarzeń od 68 minuty do końca meczu.
+6. **Generowanie raportu:**
+   - Tworzenie raportu zawierającego statystyki oraz wnioski na temat zachowania drużyn.
+
+---
+
+## 2. **Wymagane Zasoby**
+
+### Dane wejściowe:
+1. Dane tabeli ligowej (standings) z API Football.
+2. Dane o spotkaniach (fixtures) z API Football.
+3. Dane o wydarzeniach (events) i statystykach (statistics) każdego meczu.
+4. Lokalny plik `championship_all_fixture_data.csv` zawierający dane o spotkaniach w formacie CSV.
+
+### Narzędzia:
+- Python (wersja 3.8 lub wyższa).
+- Biblioteki:
+  - `requests` (do pobierania danych z API).
+  - `pandas` (do analizy danych).
+  - `csv` (do obsługi plików CSV).
+
+---
+
+## 3. **Struktura Kodów**
+
+### 3.1 Pobieranie danych z API Football
+
+```python
+import requests
+
+def fetch_standings(league_id, season):
+    url = f"https://v3.football.api-sports.io/standings"
+    headers = {"x-apisports-key": "API_KEY"}
+    params = {"league": league_id, "season": season}
+    response = requests.get(url, headers=headers, params=params)
+    return response.json()["response"][0]["league"]["standings"][0]
+```
+
+### 3.2 Analiza analogicznych meczów
+
+```python
+def find_analogous_matches(standings, fixtures, team_id, is_home):
+    team_position = next(item["rank"] for item in standings if item["team"]["id"] == team_id)
+    match_ids = []
+
+    for fixture in fixtures:
+        opponent_position = ... # Pobranie pozycji przeciwnika
+        position_difference = team_position - opponent_position
+
+        if (is_home and position_difference > 0) or (not is_home and position_difference < 0):
+            match_ids.append(fixture["fixture"]["id"])
+
+    return match_ids
+```
+
+### 3.3 Analiza danych z pliku CSV
+
+```python
+import pandas as pd
+
+def analyze_matches_from_csv(csv_file, match_ids):
+    data = pd.read_csv(csv_file)
+    results = []
+
+    for match_id in match_ids:
+        match = data[data["Fixture ID"] == match_id]
+        if not match.empty:
+            events = eval(match.iloc[0]["Events"])
+            stats = eval(match.iloc[0]["Statistics"])
+            results.append({
+                "Fixture ID": match_id,
+                "Events": events,
+                "Statistics": stats,
+            })
+    return results
+```
+
+### 3.4 Generowanie raportu
+
+```python
+def save_report(results, filename):
+    with open(filename, "w") as file:
+        for result in results:
+            file.write(f"Fixture ID: {result['Fixture ID']}\n")
+            file.write(f"Events: {result['Events']}\n")
+            file.write(f"Statistics: {result['Statistics']}\n\n")
+```
+
+---
+
+## 4. **Proces Analizy**
+
+1. **Pobierz dane tabeli i meczu:**
+   - Pobranie danych tabeli ligowej i wszystkich spotkań przy użyciu funkcji `fetch_standings` i `fetch_fixtures`.
+
+2. **Zidentyfikuj analogiczne mecze:**
+   - Dla gospodarza: mecze z drużynami wyżej lub niżej w tabeli w podobnej sytuacji punktowej.
+   - Dla gości: mecze wyjazdowe z drużynami w podobnej różnicy punktowej.
+
+3. **Załaduj dane meczowe z CSV:**
+   - Analiza wydarzeń i statystyk każdego meczu od 68 minuty do końca.
+
+4. **Wygeneruj raport:**
+   - Tworzenie raportu zawierającego szczegóły i wnioski z analizy.
+
+---
+
+## 5. **Zakres Testów**
+
+### Testy jednostkowe:
+- Testy poprawności pobierania danych z API Football.
+- Weryfikacja działania funkcji `find_analogous_matches`.
+- Testy poprawności przetwarzania danych CSV.
+
+### Scenariusze testowe:
+1. Pobierz dane dla drużyny zajmującej 6 miejsce w tabeli i grającej z drużyną na 12 miejscu.
+2. Sprawdź, czy analiza poprawnie identyfikuje analogiczne mecze.
+3. Wygeneruj raport i zweryfikuj, czy dane są zgodne z oczekiwaniami.
+
+---
+
+## 6. **Podsumowanie i Wnioski**
+
+- Proces analizy został sformalizowany w modularnym kodzie, który umożliwia łatwe modyfikacje.
+- Wszystkie dane są przetwarzane w sposób elastyczny z uwzględnieniem potencjalnych błędów formatowania.
+- Raport końcowy dostarcza szczegółowych informacji o taktyce drużyn w podobnych sytuacjach ligowych.
+
