@@ -1,0 +1,55 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class BloodDonationLogin {
+    public static void main(String[] args) {
+        // Create a frame
+        JFrame frame = new JFrame("Blood Donation Login");
+        frame.setSize(400, 250);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(null);
+
+        // Username label and text field
+        JLabel usernameLabel = new JLabel("Username:");
+        usernameLabel.setBounds(50, 50, 100, 30);
+        frame.add(usernameLabel);
+
+        JTextField usernameField = new JTextField();
+        usernameField.setBounds(150, 50, 200, 30);
+        frame.add(usernameField);
+
+        // Password label and password field
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordLabel.setBounds(50, 100, 100, 30);
+        frame.add(passwordLabel);
+
+        JPasswordField passwordField = new JPasswordField();
+        passwordField.setBounds(150, 100, 200, 30);
+        frame.add(passwordField);
+
+        // Login button
+        JButton loginButton = new JButton("Login");
+        loginButton.setBounds(150, 150, 100, 30);
+        frame.add(loginButton);
+
+        // Action listener for login button
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+
+                // Simple validation logic (replace with real authentication logic)
+                if (username.equals("admin") && password.equals("password")) {
+                    JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + username + "!");
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Invalid username or password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        // Make the frame visible
+        frame.setVisible(true);
+    }
+}
