@@ -1,0 +1,85 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import requests
+from sklearn.linear_model import LinearRegression
+import numpy as np
+import datetime
+
+# Example: Monitoring Soil and Weather Data
+def get_weather_data(api_key, location):
+    """Fetch weather data from an API."""
+    url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return {
+            "temperature": data["current"]["temp_c"],
+            "humidity": data["current"]["humidity"],
+            "precipitation": data["current"]["precip_mm"]
+        }
+    else:
+        print("Error fetching weather data.")
+        return None
+
+def monitor_soil_data(soil_data):
+    """Analyze soil moisture and pH levels."""
+    avg_moisture = np.mean(soil_data["moisture"])
+    avg_ph = np.mean(soil_data["ph"])
+    return avg_moisture, avg_ph
+
+# Example: Crop Health Analysis
+def analyze_crop_health(crop_images):
+    """Mock function for crop health analysis."""
+    # Here you might use an ML model for image classification.
+    health_scores = [0.9, 0.8, 0.95]  # Example scores
+    avg_health = np.mean(health_scores)
+    return avg_health
+
+# Example: Inventory and Workflow Management
+def manage_inventory(inventory_data, usage_rate):
+    """Predict inventory depletion based on usage rate."""
+    inventory_df = pd.DataFrame(inventory_data)
+    inventory_df["days_to_depletion"] = inventory_df["quantity"] / inventory_df["daily_usage"]
+    return inventory_df
+
+# Mock data for demonstration
+soil_data = {
+    "moisture": [30, 35, 32, 28, 34],
+    "ph": [6.5, 6.8, 7.0, 6.7, 6.9]
+}
+crop_images = ["image1.jpg", "image2.jpg", "image3.jpg"]
+inventory_data = {
+    "item": ["Fertilizer", "Seeds", "Pesticides"],
+    "quantity": [50, 100, 30],
+    "daily_usage": [5, 10, 3]
+}
+
+# Replace with your API key and location
+api_key = "your_api_key"
+location = "New York"
+
+# Fetch and display weather data
+weather_data = get_weather_data(api_key, location)
+print("Weather Data:", weather_data)
+
+# Analyze soil data
+avg_moisture, avg_ph = monitor_soil_data(soil_data)
+print(f"Average Soil Moisture: {avg_moisture}%")
+print(f"Average Soil pH: {avg_ph}")
+
+# Analyze crop health
+avg_health = analyze_crop_health(crop_images)
+print(f"Average Crop Health Score: {avg_health}")
+
+# Manage inventory
+inventory_df = manage_inventory(inventory_data, usage_rate=5)
+print("\nInventory Status:")
+print(inventory_df)
+
+# Visualization: Soil moisture over time
+plt.plot(range(len(soil_data["moisture"])), soil_data["moisture"], marker="o")
+plt.title("Soil Moisture Over Time")
+plt.xlabel("Time (days)")
+plt.ylabel("Moisture (%)")
+plt.grid()
+plt.show()
