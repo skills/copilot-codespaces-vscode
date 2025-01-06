@@ -1,0 +1,35 @@
+from pyrogram import Client, filters
+
+# Bot Configuration
+API_ID = "27095912"  # Telegram API ID
+API_HASH = "da96e977b24d167e3a1fec12d033cba6 # Telegram API Hash
+BOT_TOKEN = "7593652667:AAG8ELo0XJctGpanddbiC-8DZalNvD2RTzw  # BotFather Token
+
+# Pyrogram Client
+app = Client("AutoFilterBot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
+
+# Simple Movie Database
+movies_db = {
+    "Avengers": "https://example.com/avengers",
+    "Inception": "https://example.com/inception",
+    "Interstellar": "https://example.com/interstellar",
+    "Avatar": "https://example.com/avatar"
+}
+
+# Start Command
+@app.on_message(filters.command("start"))
+def start(_, message):
+    message.reply_text("Hi! Send me a movie name, and I'll find it for you.")
+
+# Filter Movie Links
+@app.on_message(filters.text & ~filters.command)
+def auto_filter(_, message):
+    query = message.text.lower()
+    results = [f"🎥 {name}: {link}" for name, link in movies_db.items() if query in name.lower()]
+    if results:
+        message.reply_text("\n".join(results))
+    else:
+        message.reply_text("❌ Sorry, no movies found for your query!")
+
+# Run Bot
+app.run()
