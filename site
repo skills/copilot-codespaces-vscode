@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="10 Passos para Fazer Seu Primeiro Milhão">
+    <title>Meta Prime - 10 Passos para Seu Primeiro Milhão</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            text-align: center;
+            padding: 1rem 0;
+            background: #333;
+            color: white;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .cta {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #4CAF50;
+            color: white;
+        }
+        .cta a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Meta Prime - Transformando Seus Sonhos em Realidade</h1>
+    </header>
+
+    <nav>
+        <a href="#sobre">Sobre</a>
+        <a href="#passos">10 Passos</a>
+        <a href="#bonus">Bônus</a>
+        <a href="#contato">Contato</a>
+    </nav>
+
+    <div class="container">
+        <section id="sobre" class="section">
+            <h2>Sobre</h2>
+            <p>Bem-vindo ao <strong>Meta Prime</strong>, onde transformamos o sonho do primeiro milhão em um plano prático e acessível. Inspirado nos 10 passos comprovados, ajudamos você a desenvolver uma mentalidade vencedora, organizar suas finanças e escalar seu sucesso.</p>
+        </section>
+
+        <section id="passos" class="section">
+            <h2>10 Passos para Fazer Seu Primeiro Milhão</h2>
+            <ol>
+                <li>Defina um objetivo claro.</li>
+                <li>Desenvolva uma mentalidade de riqueza.</li>
+                <li>Organize suas finanças pessoais.</li>
+                <li>Crie fontes de renda múltiplas.</li>
+                <li>Invista inteligentemente.</li>
+                <li>Controle seus gastos.</li>
+                <li>Construa networking e parcerias.</li>
+                <li>Mantenha o foco e a disciplina.</li>
+                <li>Reinvente-se constantemente.</li>
+                <li>Reinvista e escale.</li>
+            </ol>
+        </section>
+
+        <section id="bonus" class="section">
+            <h2>Bônus Exclusivo</h2>
+            <p>Ao se cadastrar, você recebe:</p>
+            <ul>
+                <li>Checklist de metas SMART.</li>
+                <li>Acesso a uma comunidade exclusiva de networking.</li>
+                <li>Um e-book gratuito: "10 Dicas para Começar a Investir Hoje".</li>
+            </ul>
+            <div class="cta">
+                <p><a href="#contato">Cadastre-se agora</a> e comece sua jornada financeira!</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Meta Prime. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
