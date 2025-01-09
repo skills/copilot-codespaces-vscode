@@ -1,10 +1,6 @@
-name: Step 3, Copilot hub suggestion
+name: Step 3, Copilot Hub Suggestion
 
-# This step triggers after push to main#member.js.
-# This workflow updates from step 3 to step 4.
-
-# This will run every time we push to main#member.js.
-# Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+# Trigger after push to main branch for member.js file.
 on:
   workflow_dispatch:
   push:
@@ -13,58 +9,41 @@ on:
     branches:
       - main
 
-# Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
-  # Need `contents: read` to checkout the repository.
-  # Need `contents: write` to update the step metadata.
   contents: write
 
 jobs:
-  # The purpose of this job is to output the current step number
-  # (retreived from the step file). This output variable can
-  # then be referenced in other jobs and used in conditional
-  # expressions.
   get_current_step:
-    name: Check current step number
+    name: Check Current Step Number
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
       - id: get_step
-        run: echo "current_step=$(cat ./.github/steps/-step.txt)" >> $GITHUB_OUTPUT
+        run: echo "current_step=$(cat ./.github/steps/step.txt)" >> $GITHUB_OUTPUT
     outputs:
       current_step: ${{ steps.get_step.outputs.current_step }}
 
-  on_Copilothubsuggestions:
-    name: On Copilot hub suggestion
+  on_Copilothub_suggestions:
+    name: On Copilot Hub Suggestion
     needs: get_current_step
-
-    # We will only run this action when:
-    # 1. This repository isn't the template repository.
-    # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
-    # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
     if: ${{ !github.event.repository.is_template && needs.get_current_step.outputs.current_step == 3 }}
-
-    # We'll run Ubuntu for performance instead of Mac or Windows.
     runs-on: ubuntu-latest
 
     steps:
-      # We'll need to check out the repository so that we can edit the README.
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Let's get all the branches.
+          fetch-depth: 0
 
-      # Verify the skills member function is present.
-      - name: Check package for axios version 0.21.2
-        uses: skills/action-check-file@v1
+      - name: Check Package for axios version 0.21.2
+        uses: actions/action-check-file@v1
         with:
           file: "member.js"
           search: "skillsMember"
 
-      # In README.md, switch step 3 for step 4.
-      - name: Update to step 4
-        uses: skills/action-update-step@v2
+      - name: Update to Step 4
+        uses: actions/action-update-step@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           from_step: 3
