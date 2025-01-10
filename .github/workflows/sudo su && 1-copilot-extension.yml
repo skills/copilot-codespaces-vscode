@@ -1,0 +1,329 @@
+sudo su && name: Step 1, Copilot Extension in a Codespace
+
+# This step triggers after push to main#devcontainer.json.
+# This workflow updates from step 1 to step 2.
+
+# This will run every time we main#devcontainer.json
+# Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".devcontainer/devcontainer.json"
+    branches:
+      - main
+
+# Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
+permissions:
+  # Need `contents: read` to checkout the repository.
+  # Need `contents: write` to update the step metadata.
+  contents: write
+
+jobs:
+  # The purpose of this job is to output the current step number
+  # (retreived from the step file). This output variable can
+  # then be referenced in other jobs and used in conditional.
+  # expressions.
+  get_current_step:
+    name: Check current step number
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - id: get_step
+        run: echo "current_step=$(cat ./.github/steps/-step.txt)" >> $GITHUB_OUTPUT
+    outputs:
+      current_step: ${{ steps.get_step.outputs.current_step }}
+
+  on_add_devcontainer:
+    name: On Add Devcontainer
+    needs: get_current_step
+
+    # We will only run this action when:
+    # 1. This repository isn't the template repository.
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
+    if: ${{ !github.event.repository.is_template && needs.get_current_step.outputs.current_step == 1 }}
+
+    # We'll run Ubuntu for performance instead of Mac or Windows.
+    runs-on: ubuntu-latest
+
+    steps:
+      # We'll need to check out the repository so that we can edit the README.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Verify the learner added the file contents.
+      - name: Check workflow contents, jobs
+        uses: skills/action-check-file@v1
+        with:
+          file: ".devcontainer/devcontainer.json"
+          search: "GitHub\\.copilot"
+
+      # In README.md, switch step 1 for step 2.
+      - name: Update to step 2
+        uses: skills/action-update-step@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          from_step: 1
+          to_step: 2 && <script async
+src="https://widget.kapa.ai/kapa-widget.bundle.js"
+data-website-id="XXX-XXX-XXX"
+data-project-name="kapa.ai"
+data-project-color="#6306B6"
+data-project-logo="kapa.ai/assets/logo.png"
+data-modal-disclaimer="This is a custom LLM with access to all [kapa.ai documentation](https://docs.kapa.ai)."
+data-modal-example-questions="How do I get started?,How to add example questions?"
+data-user-analytics-fingerprint-enabled="true"
+></script>
+
+Behavioral parameters (Optional)
+In addition to above required parameters, you can also add the following optional parameters to customize the beahvior of your website widget:
+
+Modal and button behavior: The default behavior is to open the modal on clicking the "Ask AI" button. If you want to override this behavior, you can set the following parameters:
+
+data-button-hide: Set to "true" to hide the button. Default is not set.
+data-modal-override-open-class: Set to a class name (e.g., "my-search-bar-class") to override the modal open behavior. Default is not set.
+data-modal-override-open-id: Set the id of your HTML element (e.g., "my-search-bar-id") to override the modal open behavior. Default is not set. This is computationally more efficient than using data-modal-override-open-class.
+data-modal-override-open-class-search: Set to a class name (e.g., "my-search-bar-class") to override the modal open behavior with the search mode being the default.
+data-modal-override-open-id-search: Set to the id of your HTML element (e.g., "my-search-bar-id") to override the modal open behavior with the search mode being the default. This is computationally more efficient than using data-modal-override-open-class-search.
+data-modal-override-open-class-ask-ai: Set to a class name (e.g., "my-search-bar-class") to override the modal open behavior with the ask-ai mode being the default.
+data-modal-override-open-id-ask-ai: Set to the id of your HTML element (e.g., "my-search-bar-id") to override the modal open behavior with the ask-ai mode being the default. This is computationally more efficient than using data-modal-override-open-class-ask-ai.
+data-modal-open-by-default: Set to "true" to open the modal by default when loading it on a page. Default is not set.
+data-modal-open-on-command-k: Set to "true" to enable opening the modal with Cmd+K. Default is set to "false".
+Text and image customization: You can customize the text that appears in the widget by setting the following parameters:
+
+data-modal-title: Set the title for the modal. Default is "[project name] Docs AI".
+data-modal-title-ask-ai: When search mode is enabled, set the title for the modal when the ask AI mode is currently active. Default is the value of data-modal-title.
+data-modal-title-search: When search mode is enabled, set the title for the modal when the search mode is currently active. Default is the value of data-modal-title.
+data-modal-disclaimer: Set a disclaimer to appear at the top of the modal (e.g., results are AI generated). Supports Markdown. Default is not set.
+data-modal-example-questions: Comma separated list of example questions to show in the modal (e.g., "How do I get started?,What Python version do I need?"). Default is not set.
+data-modal-example-questions-title: Title above the example questions. Default is "EXAMPLE QUESTIONS".
+data-modal-ask-ai-input-placeholder: Set the placeholder text for the Ask AI input field. Default is "Ask me a question about [project name]...".
+data-answer-feedback-info-text: Info text below the feedback buttons. Default is "All feedback is reviewed by the team.".
+data-uncertain-answer-callout: An addional message, formatted as markdown, that is directly appended to the kapa answer in cases where kapa is uncertain. For example when answering: "Hmm, I don't know enough to give you a confident answer yet.". Default is not set.
+data-modal-search-input-placeholder: Set the placeholder text for the Search mode search bar. Default is "Search sources...".
+data-modal-image: Provide a URL for the image in the modal header. Default is [project-logo].
+data-modal-image-ask-ai: Provide a URL for the image in the modal header when the Ask AI mode is enabled. Default is the value of data-modal-image.
+data-modal-image-search: Provide a URL for the image in the modal header when the Search mode is enabled. Default is the value of data-modal-image.
+data-modal-image-hide: Set to "true" to hide the image in the modal. Default is not set.
+data-button-image: Provide a URL for the image in the button. Default is [project-logo].
+data-button-text: Set the text for the search button. Default is "Ask AI".
+Search configuration: By default, the search mode is not enabled. You can enable it and customize its behaviour with the following parameters:
+
+data-search-mode-enabled: Set to "true" to enable the search mode. Default is "false".
+data-search-mode-default: Set to "true" to set search as the default mode when the widget is triggered. Default is "false".
+data-modal-command-k-search-mode-default: Set to "true" to set search as the default mode when the widget is triggered via Cmd + K. Default is "false".
+data-search-display-num-results: The amount of results displayed in each "page", i.e. before the user needs to hit "Show more". Default is "5".
+data-search-include-source-names: Define the set of source names that should be included in the search. All remaining sources will not be retrieved. You can find the source name in the kapa dashboard. Default is not set. Example input: '["Source A", "Source B"]'
+data-search-source-group-order: Define an order of source names by wich sources should be grouped in the results list. Default is not defined.
+data-search-keyboard-nav-enabled: Set to "false" if you would like to disable keyboard navigation. Default is "true".
+data-search-show-ask-ai-cta: Set to "false" to disable the Ask AI CTA in search results. Default is "true".
+Anonymous user tracking: By default, the widget does not track or store any data besides the questions asked by users and answers provided by the AI model. However, you can enable anonymous user tracking to gain insights into user interactions without storing any personal data. Read more about anonymous user tracking.
+
+data-user-analytics-fingerprint-enabled: Set to "true" to enable anonymous user tracking. Default is "false".
+Consent screen configuration: By default, consent from users is not required in order to chat with kapa. If you wish to enable requiring user consent, you can configure a consent screen with the following parameters:
+
+data-consent-required: Set to "true" to enable the consent check. Please note that enabling this will set a kapa_consent cookie in the browser. Default is "false".
+data-consent-screen-title: Default is "Hi there, do you want to use the AI chat?".
+data-consent-screen-disclaimer: Default is "By clicking the "I agree, let's chat" button, you agree to the necessary cookies. You can find more information in our privacy policy.".
+data-consent-screen-accept-button-text: Default is "I agree, lets chat!".
+data-consent-screen-reject-button-text: Default is "No, not interested".
+Answer CTA button: It’s possible to add a custom call-to-action (CTA) button below the kapa answer, which can redirect users to a configurable link. This allows you to guide users, such as encouraging them to speak with a sales expert. You can configure the CTA button with the following parameters:
+
+data-answer-cta-button-enabled: Set to "true" to enable the CTA button.
+data-answer-cta-button-link: Configure the URL to which the CTA button should link to.
+data-answer-cta-button-text: Configure the text of the CTA button.
+Style parameters (Optional)
+A set of optional parameters to configure the components' styles. You can assign any valid CSS value to these properties.
+
+Global
+
+data-font-family: Default is "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;".
+data-font-size-xs: Adjust the font size for text of size XS. Default is 0.75rem.
+data-font-size-sm: Adjust the font size for text of size SM. Default is 0.875rem.
+data-font-size-md: Adjust the font size for text of size MD. Default is 1rem.
+data-font-size-lg: Adjust the font size for text of size LG. Default is 1.125rem.
+data-font-size-xl: Adjust the font size for text of size XL. Default is 1.25rem.
+Button
+
+The default positioining is 20px from bottom right corner. If you want to configure this you can set the distance from the edge of the page (in pixels) where the widget will appear.
+
+data-button-position-top: Default is not set.
+data-button-position-right: Default is "20px".
+data-button-position-bottom: Default is "20px".
+data-button-position-left: Default is not set.
+You can further adjust the button apprearance to your needs.
+
+data-button-z-index: Default is "199".
+data-button-height: Default is "5rem".
+data-button-width: Default is "4.5rem".
+data-button-padding: Default is "0".
+data-button-bg-color: Default is not set.
+data-button-border-radius: Default is not set.
+data-button-border: Default is not set.
+data-button-box-shadow: Default is "0 0 10px rgba(0, 0, 0, 0.2)".
+data-button-image-height: Default is "32".
+data-button-image-width: Default is "32".
+data-button-text-font-size: Default is not set.
+data-button-text-font-weight: Default is not set.
+data-button-text-font-family: Default is not set.
+data-button-text-color: Default is not set.
+data-button-text-shadow: Default is "1px 1px 2px rgba(0, 0, 0, 0.2)".
+Modal
+
+Style parameters for the modal which pops up when triggering the widget.
+
+data-modal-close-button-hide: Default is "false".
+data-modal-z-index: Default is "200".
+data-modal-size: Default is "640px".
+data-modal-full-screen: Default is "false".
+data-modal-full-screen-on-mobile: Default is "true".
+data-modal-lock-scroll: Prevents scrolling on the page behind the modal. Default is "true".
+data-modal-x-offset: Default is not set. On mobile, this has no effect if full screen is set.
+data-modal-y-offset: Default is "10vh". On mobile, this has no effect if full screen is set.
+data-modal-border-radius: Default is set to "0.5rem".
+data-modal-disclaimer-bg-color: Default is set to "#F8F9FA".
+data-modal-disclaimer-text-color: Default is set to "gray".
+data-modal-disclaimer-font-size: Default is set to "0.75rem".
+data-modal-header-logo-hide-on-mobile: Default is set to "false".
+data-modal-header-min-height: Default is set to "48px".
+data-modal-header-padding: Default is set to "20px".
+data-modal-header-padding-top: Default is not set.
+data-modal-header-padding-right: Default is not set.
+data-modal-header-padding-bottom: Default is not set.
+data-modal-header-padding-left: Default is not set.
+data-modal-header-bg-color: Default is "#F1F3F5.
+data-modal-header-border-bottom: Default is "1px solid #CED4DA.
+data-modal-body-bg-color: Default is not set.
+data-modal-body-padding-top: Default is "8px".
+data-modal-body-padding-right: Default is "20px".
+data-modal-body-padding-bottom: Default is "20px".
+data-modal-body-padding-left: Default is "20px".
+data-modal-title-font-family: Default is not set.
+data-modal-title-font-size: Default is not set.
+data-modal-title-font-weight: Default is not set.
+data-modal-title-color: Default is not set.
+data-modal-image-height: Default is set to "32".
+data-modal-image-width: Default is set to "32".
+data-modal-with-overlay: Default is "true".
+data-modal-inner-flex-direction: Default is not set.
+data-modal-inner-justify-content: Default is not set.
+data-modal-inner-max-width: Default is not set.
+data-modal-inner-position-right: Default is not set.
+data-modal-inner-position-left: Default is not set.
+data-modal-inner-position-bottom: Default is not set.
+data-modal-overlay-bg-color: Default is "rgba(0, 0, 0, 0.6)".
+data-modal-overlay-opacity: Default is "1".
+data-modal-example-questions-col-span: Defines over how many columns (out of 12) an example question spans. Default is set to "6".
+data-conversation-buttons-icons-only: Default is "false" Only show icons on buttons instead of text and icons.
+Query Input
+
+data-query-input-font-size: Default is "0.75rem".
+data-query-input-text-color: Default is "#000".
+data-query-input-placeholder-text-color: Default is "#adb5bd".
+data-query-input-border-color: Default is "#ced4da".
+data-query-input-focus-border-color: Default is the project color.
+data-submit-query-button-bg-color: Default is the project color.
+Answer Feedback Button
+
+data-answer-feedback-button-height: Default is not set.
+data-answer-feedback-button-width: Default is not set.
+data-answer-feedback-button-padding-x: Default is not set.
+data-answer-feedback-button-padding-y: Default is not set.
+data-answer-feedback-button-border: Default is not set.
+data-answer-feedback-button-active-border: Default is not set.
+data-answer-feedback-button-border-radius: Default is not set.
+data-answer-feedback-button-bg-color: Default is not set.
+data-answer-feedback-button-active-bg-color: Default is not set.
+data-answer-feedback-button-active-hover-bg-color: Default is "transparent".
+data-answer-feedback-button-hover-bg-color: Default is not set.
+data-answer-feedback-button-text-color: Default is not set.
+data-answer-feedback-button-active-text-color: Default is not set.
+data-answer-feedback-button-font-size: Default is not set.
+data-answer-feedback-button-icon-size: Default is not set.
+data-answer-feedback-button-box-shadow: Default is not set.
+Copy Answer Button
+
+data-answer-copy-button-height: Default is not set.
+data-answer-copy-button-width: Default is not set.
+data-answer-copy-button-padding-x: Default is not set.
+data-answer-copy-button-padding-y: Default is not set.
+data-answer-copy-button-border: Default is not set.
+data-answer-copy-button-border-radius: Default is not set.
+data-answer-copy-button-bg-color: Default is not set.
+data-answer-copy-button-hover-bg-color: Default is not set.
+data-answer-copy-button-text-color: Default is not set.
+data-answer-copy-button-font-size: Default is not set.
+data-answer-copy-button-icon-size: Default is not set.
+data-answer-copy-button-box-shadow: Default is not set.
+Clear Thread Button
+
+data-thread-clear-button-height: Default is not set.
+data-thread-clear-button-width: Default is not set.
+data-thread-clear-button-padding-x: Default is not set.
+data-thread-clear-button-padding-y: Default is not set.
+data-thread-clear-button-border: Default is not set.
+data-thread-clear-button-border-radius: Default is not set.
+data-thread-clear-button-bg-color: Default is not set.
+data-thread-clear-button-hover-bg-color: Default is not set.
+data-thread-clear-button-text-color: Default is not set.
+data-thread-clear-button-font-size: Default is not set.
+data-thread-clear-button-icon-size: Default is not set.
+data-thread-clear-button-box-shadow: Default is not set.
+Answer CTA Button
+
+data-answer-cta-button-height: Default is not set.
+data-answer-cta-button-width: Default is not set.
+data-answer-cta-button-padding-x: Default is not set.
+data-answer-cta-button-padding-y: Default is not set.
+data-answer-cta-button-border: Default is not set.
+data-answer-cta-button-border-radius: Default is not set.
+data-answer-cta-button-bg-color: Default is not set.
+data-answer-cta-button-hover-bg-color: Default is not set.
+data-answer-cta-button-text-color: Default is not set.
+data-answer-cta-button-font-size: Default is not set.
+data-answer-cta-button-box-shadow: Default is not set.
+Example Question Button
+
+data-example-question-button-height: Default is not set.
+data-example-question-button-width: Default is not set.
+data-example-question-button-padding-x: Default is not set.
+data-example-question-button-padding-y: Default is not set.
+data-example-question-button-border: Default is not set.
+data-example-question-button-border-radius: Default is not set.
+data-example-question-button-bg-color: Default is not set.
+data-example-question-button-hover-bg-color: Default is not set.
+data-example-question-button-text-color: Default is not set.
+data-example-question-button-font-size: Default is not set.
+data-example-question-button-icon-size: Default is not set.
+data-example-question-button-box-shadow: Default is "0px 1px 2px rgba(0, 0, 0, 0.1)".
+Switch
+
+Style parameters for the switch component which allows toggling between AI and Search mode.
+
+data-switch-color: Default is not set.
+data-switch-border: Default is not set.
+data-switch-border-radius: Default is not set.
+data-switch-bg-color: Default is not set.
+data-switch-show-icons: Default is set to "false".
+Search Mode
+
+Style parameters to configure elements of the search mode.
+
+data-search-result-link-target: sets the target property of the anchor tag. Default is "_blank".
+data-search-result-hover-bg-color: Default is "#F1F1F1".
+data-search-result-primary-text-color: Default is the project color.
+data-search-result-secondary-text-color: Default is "#868e96".
+data-search-result-primary-title-font-size: Default is "0.75rem".
+data-search-result-secondary-title-font-size: Default is "0.75rem".
+data-search-result-badge-bg-color: Default is not set.
+data-search-result-badge-text-color: Default is not set.
+data-search-show-more-button-text-color: Default is project color.
+data-search-show-more-button-hover-bg-color: Default is not set.
+data-search-ask-ai-cta-icon-color: Set the color of the Ask AI CTA icon. Default is the project color.
+data-search-ask-ai-cta-text-color: Set the color of the Ask AI CTA text. Default is the project color.
+data-search-ask-ai-secondary-text-color: Set the color of the secondary text in the Ask AI CTA. Default is "#868e96".
+data-search-ask-ai-cta-hover-bg-color: Set the background color of the Ask AI CTA on hover. Default is "#F1F1F1".
+data-search-ask-ai-cta-text-font-size: Set the font size of the Ask AI CTA text. Default is "xs" (0.75rem).
+data-search-ask-ai-secondary-text-font-size: Set the font size of the secondary text in the Ask AI CTA. Default is "xs"
