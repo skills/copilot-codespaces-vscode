@@ -1,0 +1,54 @@
+import random
+
+# Defining the players and the game
+class ParchiMoneyGame:
+    def __init__(self):
+        self.players = []  # List of players
+        self.board = {"red": [], "yellow": [], "green": [], "blue": []}
+        self.safe_zones = {"red": 10, "yellow": 10, "green": 10, "blue": 10}  # Safe zones
+        self.player_positions = {"red": 0, "yellow": 0, "green": 0, "blue": 0}
+        self.is_game_over = False
+
+    def add_player(self, player_name, color):
+        self.players.append({"name": player_name, "color": color, "tokens": 4})
+        self.board[color] = [0] * 4  # Start with 4 tokens for each player
+
+    def roll_dice(self):
+        return random.randint(1, 6)
+
+    def move(self, color, roll):
+        if roll == 5:
+            print(f"{color} can move a piece out of the starting area")
+        else:
+            # Logic for movement based on the dice roll
+            print(f"{color} rolled a {roll}")
+            self.player_positions[color] += roll
+            if self.player_positions[color] >= self.safe_zones[color]:
+                print(f"{color} has reached their safe zone!")
+            if self.board[color][0] > 0:  # Return the piece if it's on the path
+                self.board[color][0] -= 1
+
+    def check_winner(self):
+        for player in self.players:
+            if self.player_positions[player["color"]] >= self.safe_zones[player["color"]]:
+                print(f"{player['name']} wins!")
+                self.is_game_over = True
+
+    def play_turn(self):
+        for player in self.players:
+            roll = self.roll_dice()
+            self.move(player['color'], roll)
+            self.check_winner()
+            if self.is_game_over:
+                break
+
+# Setting up the game
+game = ParchiMoneyGame()
+game.add_player("Player1", "red")
+game.add_player("Player2", "yellow")
+game.add_player("Player3", "green")
+game.add_player("Player4", "blue")
+
+# Play the turn
+while not game.is_game_over:
+    game.play_turn()
