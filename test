@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coimbatore Travels - Sedan Car Rentals</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        section {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .contact-info {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        .contact-info a {
+            color: #2980B9;
+            text-decoration: none;
+        }
+
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .vehicle-info {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .vehicle-info h2 {
+            color: #2C3E50;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Coimbatore Travels</h1>
+    <p>Your Reliable Sedan Car Rental Service</p>
+</header>
+
+<section>
+    <div class="vehicle-info">
+        <h2>Available Vehicle: Sedan</h2>
+        <p>Looking for a comfortable and reliable car for your travels in Coimbatore? We offer high-quality sedan rentals at affordable prices.</p>
+    </div>
+
+    <div class="contact-info">
+        <p>If you're interested in booking a sedan or need more details, feel free to contact us:</p>
+        <p><strong>Contact Number:</strong> <a href="tel:+919894188103">9894188103</a></p>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>&copy; 2025 Coimbatore Travels. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
