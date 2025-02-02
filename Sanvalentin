@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hola, mi vida</title>
+  <style>
+    body {
+      background-color: #ffebf1;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .tarjeta {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      display: inline-block;
+      margin-top: 50px;
+      transition: transform 0.5s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+    .tarjeta:hover {
+      transform: scale(1.05);
+    }
+    h1 {
+      color: #d63384;
+    }
+    .corazon {
+      color: red;
+      font-size: 50px;
+      animation: latido 1.5s infinite alternate;
+    }
+    @keyframes latido {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.2);
+      }
+    }
+    .boton {
+      background-color: #d63384;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .boton:hover {
+      background-color: #b0296e;
+    }
+    #pregunta, #respuesta {
+      display: none;
+      font-size: 20px;
+      color: #d63384;
+      margin-top: 15px;
+    }
+    /* Estilos para el SVG animado de la molécula */
+    .molecula {
+      width: 150px;
+      height: 150px;
+      margin: 20px auto;
+      animation: giro 10s linear infinite;
+    }
+    @keyframes giro {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    /* Estilos para los mensajes de química */
+    .mensaje-quimica {
+      font-size: 18px;
+      color: #555;
+      margin-top: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <!-- Audio de fondo -->
+  <audio id="music" loop>
+    <source src="ruta/del/audio/todo-por-su-amor.mp3" type="audio/mp3">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
+
+  <div class="tarjeta">
+    <h1>¡Hola, mi vida, Julio! <span class="corazon">❤️</span></h1>
+    <!-- SVG de una molécula estilizada -->
+    <svg class="molecula" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="12" fill="#ff6666" />
+      <circle cx="30" cy="30" r="8" fill="#66ccff" />
+      <circle cx="70" cy="30" r="8" fill="#66ccff" />
+      <line x1="50" y1="50" x2="30" y2="30" stroke="#333" stroke-width="2" />
+      <line x1="50" y1="50" x2="70" y2="30" stroke="#333" stroke-width="2" />
+    </svg>
+    <p>Entre átomos y reacciones descubrí la fórmula perfecta:</p>
+    <p class="mensaje-quimica">Eres mi elemento esencial, la chispa que inicia mi reacción.</p>
+    <button class="boton" onclick="mostrarPregunta()">Ver Sorpresa</button>
+
+    <!-- Pregunta con botones de respuesta -->
+    <div id="pregunta">
+      <strong>¿Quieres ser mi San Valentín? 💖</strong><br>
+      <button class="boton" onclick="mostrarRespuesta()">Sí</button>
+      <button class="boton" onclick="mostrarRespuesta()">Obvio sí</button>
+    </div>
+
+    <!-- Mensaje final -->
+    <div id="respuesta">
+      <strong>Sabía que ibas a aceptar 🥰</strong><br>
+      <p>P.D.: Sé que yo no soy buena haciendo este tipo de cosas, pero quise intentarlo. Quiero hablar el mismo lenguaje que tú, te amo por muchos motivos.</p>
+    </div>
+  </div>
+
+  <script>
+    function mostrarPregunta() {
+      document.getElementById('pregunta').style.display = 'block';
+      document.getElementById('music').play();
+    }
+
+    function mostrarRespuesta() {
+      document.getElementById('respuesta').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
