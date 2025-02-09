@@ -1,0 +1,94 @@
+//+------------------------------------------------------------------+
+//|                   BOS & Valid Pullback Indicator                |
+//|               Based on price action principles                   |
+//+------------------------------------------------------------------+
+#property indicator_chart_window
+#property indicator_buffers 2
+
+// Buffers
+double BosBuffer[];
+double PullbackBuffer[];
+
+// Indicator inputs
+extern color BosColor = Red;
+extern color PullbackColor = Lime;
+extern int LineWidth = 2;
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                        |
+//+------------------------------------------------------------------+
+int OnInit()
+  {
+   SetIndexBuffer(0, BosBuffer);
+   SetIndexBuffer(1, PullbackBuffer);
+   return(INIT_SUCCEEDED);
+  }
+
+//+------------------------------------------------------------------+
+//| Corrected OnCalculate Function (MQL4 Standard)                  |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const double &time[])
+  {
+   if(rates_total < 2) return(0); // Prevent errors for small datasets
+   
+   for(int i = 1; i < rates_total - 1; i++)
+     {
+      // Identify valid pullback (price takes out previous high/low)
+      if(high[i] > high[i+1] || low[i] < low[i+1])
+        {
+         PullbackBuffer[i] = high[i]; // Mark pullback on chart
+        }
+      else
+        {
+         PullbackBuffer[i] = 0;
+        }
+      
+      // Identify BOS (Break of Structure)
+      if(close[i] > high[i+1] || close[i] < low[i+1])
+        {
+         BosBuffer[i] = close[i]; // Mark BOS
+        }
+      else
+        {
+         BosBuffer[i] = 0;
+        }
+     }
+   return(rates_total);
+  }
+
+//+------------------------------------------------------------------+
+//| Visualization: Draw Lines for BOS & Pullback                   |
+//+------------------------------------------------------------------+
+void DrawLines()
+  {
+   for(int i = 1; i < Bars - 1; i++)
+     {
+      if(BosBuffer[i] != 0)
+        {
+         string bos_name = "BOS" + IntegerToString(i);
+         ObjectCreate(0, bos_name, OBJ_HLINE, 0, Time[i], BosBuffer[i]);
+         ObjectSetInteger(0, bos_name, OBJPROP_COLOR, BosColor);
+         ObjectSetInteger(0, bos_name, OBJPROP_WIDTH, LineWidth);
+        }
+      if(PullbackBuffer[i] != 0)
+        {
+         string pullback_name = "Pullback" + IntegerToString(i);
+         ObjectCreate(0, pullback_name, OBJ_HLINE, 0, Time[i], PullbackBuffer[i]);
+         ObjectSetInteger(0, pullback_name, OBJPROP_COLOR, PullbackColor);
+         ObjectSetInteger(0, pullback_name, OBJPROP_WIDTH, LineWidth);
+        }
+     }
+  }
+
+//+------------------------------------------------------------------+
+//| Call DrawLines on Chart Events                                  |
+//+------------------------------------------------------------------+
+void OnTick()
+  {
+   DrawLines();
+  }
