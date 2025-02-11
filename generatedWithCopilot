@@ -1,0 +1,17 @@
+def calculate_tax(price):
+    if price > 50:
+        tax = price * 0.19
+        return tax
+    else:
+        return 0
+
+def main():
+    price = float(input("Enter the price: "))
+    tax = calculate_tax(price)
+    if tax > 0:
+        print(f"The tax for the price ${price} is ${tax:.2f}")
+    else:
+        print("No tax for the price below or equal to $50")
+
+if __name__ == "__main__":
+    main()
