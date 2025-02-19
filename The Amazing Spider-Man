@@ -1,0 +1,29 @@
+```csharp
+using UnityEngine;
+
+public class SpiderManController : MonoBehaviour
+{
+    public float moveSpeed = 5f;
+    public float webSwingSpeed = 10f;
+    private Rigidbody rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void Update()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        rb.velocity = movement * moveSpeed;
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            // Simulate web swinging - this would be much more complex in reality
+            rb.AddForce(Vector3.up * webSwingSpeed, ForceMode.Impulse);
+        }
+    }
+}
+```
