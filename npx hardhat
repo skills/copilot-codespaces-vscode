@@ -1,0 +1,35 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+contract FFYToken is ERC20 {
+    constructor(uint256 initialSupply) ERC20("FFY Token", "FFY") {
+        _mint(msg.sender, initialSupply);
+    }
+}
+module.exports = {
+    solidity: "0.8.0",
+    networks: {
+        sidra: {
+            url: "https://rpc.sidrchain.com", // Sidra Chain 的 RPC URL
+            accounts: ["你的私钥"] // 部署账户的私钥
+        }
+    }
+};
+async function main() {
+    const [deployer] = await ethers.getSigners();
+    console.log("Deploying contracts with the account:", deployer.address);
+
+    const FFYToken = await ethers.getContractFactory("FFYToken");
+    const token = await FFYToken.deploy(ethers.utils.parseUnits("1000000", 18)); // 发行 100 万个代币
+
+    console.log("FFY Token deployed to:", token.address);
+}
+
+main()
+    .then(() => process.exit(0))
+    .catch((error) => {
+        console.error(error);
+        process.exit(1);
+    }); 
