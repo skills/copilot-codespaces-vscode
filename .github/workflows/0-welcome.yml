@@ -1,4 +1,4 @@
-name: Step 0, Welcome
+name: name: Step 0, Welcome
 
 # This step triggers after the learner creates a new repository from the template.
 # This workflow updates from step 0 to step 1.
@@ -9,29 +9,29 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      -       - main
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
   # Need `contents: read` to checkout the repository.
   # Need `contents: write` to update the step metadata.
-  contents: write
+  contents:   contents: write
 
 jobs:
   get_current_step:
-    name: Check current step number
-    runs-on: ubuntu-latest
+    name:     name: Check current step number
+    runs-on:     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - id: get_step
-        run: echo "current_step=$(cat ./.github/steps/-step.txt)" >> $GITHUB_OUTPUT
+      - name:       - name: Checkout
+        uses:         uses: actions/checkout@v4
+      - id:       - id: get_step
+        run:         run: echo "current_step=$(cat ./.github/steps/-step.txt)" >> $GITHUB_OUTPUT"current_step=$(cat ./.github/steps/-step.txt)" >> $GITHUB_OUTPUT
     outputs:
-      current_step: ${{ steps.get_step.outputs.current_step }}
+      current_step:       current_step: ${{ steps.get_step.outputs.current_step }}{{ steps.get_step.outputs.current_step }}
 
   on_start:
-    name: On start
-    needs: get_current_step
+    name:     name: On start
+    needs:     needs: get_current_step
 
     # We will only run this action when:
     # 1. This repository isn't the template repository.
