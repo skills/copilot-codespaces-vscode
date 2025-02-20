@@ -46,7 +46,7 @@ Before you open up a codespace on a repository, you can create a development con
        }
    }
    ```
-1. Select the option to **Commit directly to the `main` branch**, and then click the **Commit new file** button.
+1. Select the option to **Commit directly to the `main` branch**, and then click the **Commit changes...** button.
 1. Navigate back to the home page of your repository by clicking the **Code** tab located at the top left of the screen.
 1. Click the **Code** button located in the middle of the page.
 1. Click the **Codespaces** tab on the box that pops up.
