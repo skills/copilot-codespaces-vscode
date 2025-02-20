@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Book {
+    char title[50];
+    float price;
+    int pages;
+};
+
+int main() {
+    struct Book book1;  // Declare a Book variable
+
+    // Assign values to the members
+    strcpy(book1.title, "Learn C Programming");
+    book1.price = 29.99;
+    book1.pages = 450;
+
+    // Print the details of the book
+    printf("Book Title: %s\n", book1.title);
+    printf("Price: %.2f\n", book1.price);
+    printf("Pages: %d\n", book1.pages);
+
+    return 0;
+}
