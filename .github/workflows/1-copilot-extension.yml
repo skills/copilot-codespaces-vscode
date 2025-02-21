@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   # The purpose of this job is to output the current step number
-  # (retreived from the step file). This output variable can
+  # (retrieved from the step file). This output variable can
   # then be referenced in other jobs and used in conditional.
   # expressions.
   get_current_step:
