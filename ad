@@ -1,0 +1,77 @@
+import * as THREE from 'three';
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
+
+document.body.style.margin = 0;
+document.body.style.overflow = 'hidden';
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const controls = new PointerLockControls(camera, document.body);
+document.addEventListener('click', () => controls.lock());
+
+const floorGeometry = new THREE.PlaneGeometry(100, 100);
+const floorMaterial = new THREE.MeshBasicMaterial({ color: 0x555555, side: THREE.DoubleSide });
+const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+floor.rotation.x = -Math.PI / 2;
+scene.add(floor);
+
+const player = new THREE.Object3D();
+player.add(camera);
+scene.add(player);
+
+const bullets = [];
+document.addEventListener('click', () => {
+    const bulletGeometry = new THREE.SphereGeometry(0.2, 8, 8);
+    const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    const bullet = new THREE.Mesh(bulletGeometry, material);
+    bullet.position.copy(camera.position);
+    bullets.push({ bullet, direction: camera.getWorldDirection(new THREE.Vector3()) });
+    scene.add(bullet);
+});
+
+const zombies = [];
+for (let i = 0; i < 5; i++) {
+    const zombieGeometry = new THREE.BoxGeometry(1, 2, 1);
+    const zombieMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const zombie = new THREE.Mesh(zombieGeometry, zombieMaterial);
+    zombie.position.set(Math.random() * 20 - 10, 1, Math.random() * 20 - 10);
+    zombies.push(zombie);
+    scene.add(zombie);
+}
+
+const clock = new THREE.Clock();
+function animate() {
+    requestAnimationFrame(animate);
+    const delta = clock.getDelta();
+    
+    bullets.forEach((b, bulletIndex) => {
+        b.bullet.position.addScaledVector(b.direction, delta * 10);
+        
+        zombies.forEach((zombie, zombieIndex) => {
+            if (b.bullet.position.distanceTo(zombie.position) < 1) {
+                scene.remove(zombie);
+                zombies.splice(zombieIndex, 1);
+                scene.remove(b.bullet);
+                bullets.splice(bulletIndex, 1);
+            }
+        });
+
+        if (b.bullet.position.length() > 50) {
+            scene.remove(b.bullet);
+            bullets.splice(bulletIndex, 1);
+        }
+    });
+    
+    zombies.forEach((zombie) => {
+        const direction = new THREE.Vector3().subVectors(player.position, zombie.position).normalize();
+        zombie.position.addScaledVector(direction, delta * 0.5);
+    });
+
+    renderer.render(scene, camera);
+}
+animate();
+
