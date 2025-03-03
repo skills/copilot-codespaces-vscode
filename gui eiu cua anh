@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Người Anh Thương</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        h1, .button {
+            transition: opacity 1s;
+        }
+        .hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .big-text {
+            font-size: 50px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px #ff66b2;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        .show {
+            opacity: 1;
+        }
+        .button {
+            background-color: #ff69b4;
+            color: white;
+            padding: 20px 35px;
+            font-size: 24px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+        .heart-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 100% 35%, 85% 100%, 50% 75%, 15% 100%, 0% 35%);
+            animation: float 6s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(calc(-50px + 100px * random())); opacity: 0; }
+        }
+        .explosion {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            animation: explode 0.6s ease-out forwards;
+        }
+        @keyframes explode {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Gửi Người Anh Thương</h1>
+    <button class="button" id="loveButton">Bấm vào đây</button>
+    <div class="heart-container"></div>
+    <div id="bigMessage" class="big-text">Anh Yêu Em ❤️</div>
+    <script>
+        document.getElementById("loveButton").addEventListener("click", function(event) {
+            document.getElementById("title").classList.add("hidden");
+            document.getElementById("loveButton").classList.add("hidden");
+            let message = document.getElementById("bigMessage");
+            message.classList.add("show");
+            createExplosion(event.clientX, event.clientY);
+        });
+        
+        function createHeart() {const heart = document.createElement("div");
+            heart.classList.add("heart");
+            document.querySelector(".heart-container").appendChild(heart);
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            heart.style.transform = `translateX(${Math.random() * 50 - 25}px)`;
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 150);
+        
+        function createExplosion(x, y) {
+            for (let i = 0; i < 10; i++) {
+                let explosionHeart = document.createElement("div");
+                explosionHeart.classList.add("heart", "explosion");
+                document.body.appendChild(explosionHeart);
+                explosionHeart.style.left = `${x + (Math.random() * 100 - 50)}px`;
+                explosionHeart.style.top = `${y + (Math.random() * 100 - 50)}px`;
+                setTimeout(() => { explosionHeart.remove(); }, 600);
+            }
+        }
+    </script>
+</body>
+</html>
