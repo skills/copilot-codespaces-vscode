@@ -1,0 +1,88 @@
+# index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <h1>Chat</h1>
+  <div id="chat-container">
+    <div id="mensagens"></div>
+    <input id="mensagem" type="text" placeholder="Digite sua mensagem...">
+    <button id="enviar">Enviar</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+# estilo.css
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+#chat-container {
+  width: 400px;
+  height: 600px;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+#mensagens {
+  height: 500px;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+#mensagem {
+  width: 100%;
+  height: 30px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#enviar {
+  width: 100%;
+  height: 30px;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#enviar:hover {
+  background-color: #3e8e41;
+}
+
+
+# script.js
+
+const mensagemInput = document.getElementById('mensagem');
+const enviarButton = document.getElementById('enviar');
+const mensagensContainer = document.getElementById('mensagens');
+
+let mensagens = [];
+
+enviarButton.addEventListener('click', () => {
+  const mensagem = mensagemInput.value.trim();
+  if (mensagem !== '') {
+    mensagens.push({ texto: mensagem, usuario: 'Você' });
+    mensagemInput.value = '';
+    atualizarMensagens();
+  }
+});
+
+function atualizarMensagens() {
+  mensagensContainer.innerHTML = '';
+  mensagens.forEach((mensagem) => {
+    const mensagemElement = document.createElement('div');
+    mensagemElement.textContent = `${mensagem.usuario}: ${mensagem.texto}`;
+    mensagensContainer.appendChild(mensagemElement);
+  });
+}
