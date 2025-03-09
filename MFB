@@ -1,0 +1,23 @@
+<html><head><base href="."><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Login - Military Federal Credit Union</title><style>
+:root {
+  --navy-blue: #003875;
+  --military-green: #4B5320;
+  --gold: #FFD700;
+  --white: #ffffff;
+  --light-gray: #f5f5f5;
+}
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--light-gray);
+  overflow-x: hidden;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 2.5rem;
