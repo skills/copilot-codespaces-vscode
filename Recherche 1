@@ -1,0 +1,13 @@
+curl --request POST \
+    --url https://api.climatiq.io/estimate \
+    --header "Authorization: Bearer $7XR1GGB3J16T554V9EZQ4WRF3W" \
+    --data '{
+	"emission_factor": {
+		"activity_id": "construction-type_construction_work",
+		"data_version": "^0"
+	},
+	"parameters": {
+		"money": 500,
+		"money_unit": "usd"
+	}
+}'
