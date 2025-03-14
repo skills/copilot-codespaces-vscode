@@ -30,6 +30,10 @@ Keep in mind that as you continue to use copilot, you may not want some of the s
    function skillsMember()
    ```
 4. Stop typing and view the Copilot suggestion by hovering over the red squiggly and select the `...`
+
+   > **Note**
+   > If you don't see the copilot code block suggestion or the red squiggly and the three dots `...`, you can type `control + enter` to bring up the GitHub Copilot completions panel.
+  
 5. Click `Open Completions Panel`. Copilot will synthesize around 10 different code suggestions. You should see something like this:
    ![Screen Shot 2023-04-27 at 10 06 55 AM](https://user-images.githubusercontent.com/26442605/234937592-d196bd5e-8ac2-4d9a-87f4-94e8a9b6a417.png)
 6. Find a solution you like and click `Accept Solution`.
